@@ -6,8 +6,15 @@
 <a [routerLink]="['']"> Strona Glowna</a>
 <form>
     <p>Login:<br><input type="text" id="username" ></p>
+
     <p *ngIf="authType == 'register'">Mail:<br><input type="text" id="email">
+
     <p>Haslo:<br><input type="text" id="password1"></p>
+
     <p *ngIf="authType == 'register'">Haslo2:<br><input type="text" id="password2"></p>
+
+    <button type="submit">{{title}}</button>
+
 </form>
+
 
