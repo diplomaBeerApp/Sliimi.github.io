@@ -1,0 +1,13 @@
+<h1>{{title}}</h1>
+
+<a [routerLink]="['/login']" *ngIf="authType == 'register'">Logowanie</a>
+<a [routerLink]="['/register']" *ngIf="authType == 'login'">Rejestracja</a>
+<br>
+<a [routerLink]="['']"> Strona Glowna</a>
+<form>
+    <p>Login:<br><input type="text" id="username" ></p>
+    <p *ngIf="authType == 'register'">Mail:<br><input type="text" id="email">
+    <p>Haslo:<br><input type="text" id="password1"></p>
+    <p *ngIf="authType == 'register'">Haslo2:<br><input type="text" id="password2"></p>
+</form>
+
