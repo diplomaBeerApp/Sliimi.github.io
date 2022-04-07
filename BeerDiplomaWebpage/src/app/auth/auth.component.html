@@ -1,0 +1,17 @@
+<h1 class="center">{{title}}</h1>
+
+<form  (ngSubmit)="onSubmit()">
+    <fieldset class="form-group">
+        <fieldset class ="form-group"><input  type="text" id="username" class="form" placeholder="Login" ></fieldset>
+
+        <fieldset  class ="form-group" *ngIf="authType == 'register'"><input class="form" type="text" id="email" placeholder="Email"></fieldset>
+
+        <fieldset class ="form-group"><input class="form" type="password" id="password1" placeholder="Hasło"></fieldset>
+
+        <fieldset class ="form-group" *ngIf="authType == 'register'"><input class="form" type="password" id="password2" placeholder="Powtórz hasło"></fieldset>
+
+        <button class="btn" type="submit" >{{title}}</button>
+    </fieldset>
+</form>
+
+
