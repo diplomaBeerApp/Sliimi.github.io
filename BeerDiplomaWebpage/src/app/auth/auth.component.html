@@ -1,20 +1,17 @@
-<h1>{{title}}</h1>
+<h1 class="center">{{title}}</h1>
 
-<a [routerLink]="['/login']" *ngIf="authType == 'register'">Logowanie</a>
-<a [routerLink]="['/register']" *ngIf="authType == 'login'">Rejestracja</a>
-<br>
-<a [routerLink]="['']"> Strona Glowna</a>
 <form>
-    <p>Login:<br><input type="text" id="username" ></p>
+    <fieldset class="form-group">
+        <fieldset class ="form-group"><input  type="text" id="username" class="form" placeholder="Login" ></fieldset>
 
-    <p *ngIf="authType == 'register'">Mail:<br><input type="text" id="email">
+        <fieldset  class ="form-group" *ngIf="authType == 'register'"><input class="form" type="text" id="email" placeholder="Email"></fieldset>
 
-    <p>Haslo:<br><input type="text" id="password1"></p>
+        <fieldset class ="form-group"><input class="form" type="password" id="password1" placeholder="Hasło"></fieldset>
 
-    <p *ngIf="authType == 'register'">Haslo2:<br><input type="text" id="password2"></p>
+        <fieldset class ="form-group" *ngIf="authType == 'register'"><input class="form" type="password" id="password2" placeholder="Powtórz hasło"></fieldset>
 
-    <button type="submit">{{title}}</button>
-
+        <button class="btn" type="submit" >{{title}}</button>
+    </fieldset>
 </form>
 
 
