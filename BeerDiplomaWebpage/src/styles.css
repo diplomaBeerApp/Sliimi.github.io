@@ -1,8 +1,8 @@
-.form-group{
-border-style: none;
+.form-group {
+    border-style: none;
 }
 
-.form{
+.form {
     border-width: 1px;
     border-radius: 5px;
     width:400px;
@@ -14,7 +14,7 @@ border-style: none;
     display:block;
 }
 
-.btn{
+.btn {
     border-width: 1px;
     border-radius: 5px;
     border-color:burlywood;
@@ -28,7 +28,7 @@ border-style: none;
     background-color:chocolate;
 }
 
-.nav{
+.nav {
     display:inline-block;
     text-align:center;
     padding:0;
@@ -36,23 +36,23 @@ border-style: none;
     margin-left:60%;
 }
 
-.nav li{
+.nav li {
     display:inline-block;
     padding:20px;
     font-size: 20px;
 
 }
 
-.link{
+.link {
     text-decoration: none;
     color:chocolate;
 }
 
-.center{
-text-align: center;
+.center {
+    text-align: center;
 }
 
-.navblock{
+.navblock {
     padding:0;
     margin:0;
     width:100%;

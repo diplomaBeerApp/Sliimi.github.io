@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +15,7 @@ import { HeaderComponent } from './header/header.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AuthModule
+    AuthModule,
   ],
   bootstrap: [AppComponent]
 })
