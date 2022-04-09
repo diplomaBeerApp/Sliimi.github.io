@@ -1,0 +1,26 @@
+/*
+export class User{
+    //public userName: String = '';
+    //public password: String = '';
+    //public password2: String = '';
+    //public email: String= '';
+    public name: String='';
+    public style: String='';
+    public brewery: String='';
+    public abv: String='';
+    public ibu: String='';
+    public img: String='';
+
+    constructor() { }
+ 
+}
+*/
+
+export interface Piwo{
+    name: String;
+    style: String;
+    brewery: String;
+    abv: String;
+    ibu: String;
+    img: String;
+  }
