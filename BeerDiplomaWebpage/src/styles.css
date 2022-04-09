@@ -28,6 +28,12 @@
     background-color:chocolate;
 }
 
+.btn:disabled {
+    background-color:coral;
+    color:chocolate;
+}
+
+
 .nav {
     display:inline-block;
     text-align:center;
