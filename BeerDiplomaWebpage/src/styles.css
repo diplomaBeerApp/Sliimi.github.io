@@ -46,7 +46,6 @@
     display:inline-block;
     padding:20px;
     font-size: 20px;
-
 }
 
 .link {
@@ -64,4 +63,23 @@
     width:100%;
     border-bottom-style:inset;
     border-color:chocolate;
+}
+
+.list { 
+    text-align: center;
+    list-style-position: inside;
+}
+
+.error {
+    color: red;
+    width: 50%;
+    margin-left:auto;
+    border-style:inset;
+    border-color:red;
+    border-width:1px;
+    border-radius:5px;
+    padding-top:10px;
+    padding-bottom:10px;
+    margin-right:auto;
+    font-size: 20px;
 }

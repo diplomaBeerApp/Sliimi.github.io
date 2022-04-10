@@ -16,6 +16,17 @@ export class User{
 }
 */
 
+export interface User{
+    login: String;
+    password: String;
+    }
+
+export interface UserInfo{
+    email: String;
+    login: String;
+    password: String;
+}
+
 export interface Piwo{
     name: String;
     style: String;
@@ -23,4 +34,4 @@ export interface Piwo{
     abv: String;
     ibu: String;
     img: String;
-  }
+}
