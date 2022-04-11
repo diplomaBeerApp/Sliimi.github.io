@@ -6,10 +6,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  public register: Boolean = false;
+  public message: String = '';
 
   constructor() { }
 
   ngOnInit(): void {
+
+    console.log(sessionStorage.getItem('userRegister'));
+
+    if(sessionStorage.getItem('userRegister')){
+      this.register = true;
+      this.message = String(sessionStorage.getItem('userRegister'));
+      sessionStorage.removeItem('userRegister')
+    }
+
   }
 
 }
