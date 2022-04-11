@@ -1,11 +1,12 @@
 <h1 class="center">{{title}}</h1>
 
 
-
 <form  [formGroup]="authForm" (ngSubmit)="onSubmit()">
     <ul class="list" *ngFor="let error of errors">
         <li class="error">{{error}}</li>
     </ul>
+
+    <p class="success" *ngIf="processing">{{registerMessage}}</p>
     
     <fieldset class="form-group">
         <fieldset class ="form-group"><input (blur)="checkLogin()" formControlName="login" type="text" id="username" class="form" placeholder="Login" ></fieldset>
@@ -16,7 +17,7 @@
 
         <fieldset class ="form-group" *ngIf="authType == 'register'"><input (blur)="checkPassword()" class="form"  formControlName="password2" type="password" id="password2" placeholder="Powtórz hasło"></fieldset>
 
-        <button [disabled]="!authForm.valid" class="btn" type="submit" >{{value}}</button>
+        <button [disabled]="!authForm.valid || processing" class="btn" type="submit">{{value}}</button>
     </fieldset>
 </form>
 

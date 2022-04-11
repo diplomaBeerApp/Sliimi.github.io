@@ -13,24 +13,26 @@ import * as bcrypt from 'bcryptjs';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css']
 })
+
 export class AuthComponent implements OnInit,OnChanges {
   authType: String = '';
   title: String = '';
   value: String ='begin';
   errors = new Array<String>();
-  status: number = 0;
-  userInfo: UserInfo={
+  processing: Boolean = false;
+  registerMessage: String = "Proszę czekać trwa przetwarzanie danych";
+
+  userInfo: UserInfo = {
     login:'',
     email:'',
     password:'',
   };
 
-
   
-  user: User={
+  user: User = {
     login:'',
     password:'',
-  }
+  };
 
   authForm = new FormGroup({
     login: new FormControl('', Validators.required),
@@ -64,19 +66,17 @@ export class AuthComponent implements OnInit,OnChanges {
     if(this.authForm.controls["email"].value != "") {
       const regularExpression = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       if(!regularExpression.test(String(this.authForm.controls["email"].value).toLowerCase())){
-        
-        if(!this.errors.includes(errorStr)){
+        if(!this.errors.includes(errorStr)) {
           this.errors.push(errorStr);
         }
       }
-      else{
+      else {
         if(this.errors.includes(errorStr)){
           this.errors.splice(this.errors.indexOf(errorStr),1);
         }
       }
     }
-    else
-    {
+    else {
       if(this.errors.includes(errorStr)){
         this.errors.splice(this.errors.indexOf(errorStr),1);
       }
@@ -114,7 +114,6 @@ export class AuthComponent implements OnInit,OnChanges {
             this.errors.splice(this.errors.indexOf(errorStr2),1);
           }
         }
-        
       }
       else {
         if(this.errors.includes(errorStr)) {
@@ -151,22 +150,19 @@ export class AuthComponent implements OnInit,OnChanges {
         const salt = bcrypt.genSaltSync(10);
         this.user.login = this.authForm.controls["login"].value;   
         this.user.password = bcrypt.hashSync(this.authForm.controls["password"].value, salt);
-        console.log(this.user);
-        this.authentication.checkUser(this.user).subscribe( response=>{
-          
-          this.status = response.status;
-        }, err =>{
-          this.status = err.status;
-          
-        });
-        console.log(this.status);
-        if(this.status == 403)
-        {
-          if(!this.errors.includes(errorLog)) {
-            this.errors.push(errorLog);
+        this.authentication.checkUser(this.user).subscribe( response => {
+          if(response.status == 403) {
+            if(!this.errors.includes(errorLog)) {
+              this.errors.push(errorLog);
+            }
           }
-        }
-
+        }, err => {
+          if(err.status == 403) {
+            if(!this.errors.includes(errorLog)) {
+              this.errors.push(errorLog);
+            }
+          }
+        });
     }  
     else{
       if(this.errors.length == 0) {
@@ -177,26 +173,26 @@ export class AuthComponent implements OnInit,OnChanges {
         this.userInfo.email = this.authForm.controls["email"].value;
         console.log(this.userInfo);
         this.authentication.addUser(this.userInfo).subscribe(response => {
-          this.status = response.status
-          console.log(response);
-          console.log(this.status);
-        },err => {
-          this.status = err.status;
-        });
-
-        if(this.status == 204)
-        {
-          if(!this.errors.includes(successReg)) {
-            this.errors.push(successReg);
+          if(response.status == 204) {
+            if(!this.errors.includes(successReg)) {
+              this.errors.push(successReg);
+            }
+            sessionStorage.setItem('userRegister','Rejestracja użytkownika ' + this.userInfo.login + ' powiodła się');
+            this.router.navigateByUrl('/');
           }
-        }
 
-        if(this.status == 400)
-        {
+          if(response.status == 400) {
+            if(!this.errors.includes(errorReg)) {
+              this.errors.push(errorReg);
+            }
+          }
+        },err => {
           if(!this.errors.includes(errorReg)) {
             this.errors.push(errorReg);
           }
-        }
+        });
+
+        this.processing = true;
       }
     }
   }
