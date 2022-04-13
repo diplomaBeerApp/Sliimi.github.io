@@ -4,9 +4,9 @@
 <div class="navMobile">
     <button class="menuButton" mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
     <mat-menu class="menuContainer" #menu="matMenu">
-    <button class="menuItem" onclick="window.location.href='/login'" mat-menu-item>Logowanie</button>
-    <button class="menuItem" onclick="window.location.href='/register'" mat-menu-item>Rejestracja</button>
-    <button class="menuItem" onclick="window.location.href=''" mat-menu-item>Strona Główna</button>
+    <button class="menuItem" [routerLink]="['/login']" mat-menu-item>Logowanie</button>
+    <button class="menuItem" [routerLink]="['/register']" mat-menu-item>Rejestracja</button>
+    <button class="menuItem" [routerLink]="['']" mat-menu-item>Strona Główna</button>
     </mat-menu>
 </div>
 
@@ -20,7 +20,7 @@
     </li>
 
     <li>
-        <a class="link"[routerLink]="['/register']" >Rejestracja</a>
+        <a class="link" [routerLink]="['/register']" >Rejestracja</a>
     </li>
 </ul>
 </div>
