@@ -33,16 +33,19 @@
     color:chocolate;
 }
 
-
-.nav {
-    display:inline-block;
-    text-align:center;
-    padding:0;
-    margin:0;
-    margin-left:60%;
+.navMobile {
+    display: none;
 }
 
-.nav li {
+.navPc {
+    display: inline-block;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    margin-left: 60%;
+}
+
+.navPc li {
     display:inline-block;
     padding:20px;
     font-size: 20px;
@@ -90,3 +93,37 @@
     font-size: 20px;
     padding:10px;
 }
+
+
+@media only screen and (max-device-width: 1000px){
+
+    .form{
+        width: 90%;
+        font-size:1.2em;
+    }
+    
+    .navPc {
+        display:none;
+    }
+
+    .navMobile {
+        display: initial;
+    }   
+
+    .menuButton {
+        border:none;
+        background-color: transparent;
+        color:chocolate;
+        margin-left:90%;
+        font-size:1.2em;
+        padding:2%;
+    }
+
+    .menuItem {
+        font-size:1.2em;
+    }
+
+    .menuContainer {
+    }
+
+    }

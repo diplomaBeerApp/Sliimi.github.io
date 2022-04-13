@@ -7,6 +7,7 @@ import { AbstractEmitterVisitor } from '@angular/compiler/src/output/abstract_em
 import { AuthenticationService } from './authentication.service';
 import { User, UserInfo, Piwo } from './user';
 import * as bcrypt from 'bcryptjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-auth',
@@ -45,7 +46,7 @@ export class AuthComponent implements OnInit,OnChanges {
     private authentication: AuthenticationService,
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder
+    private cookieService:CookieService
     ) {
     }
 
@@ -71,14 +72,14 @@ export class AuthComponent implements OnInit,OnChanges {
         }
       }
       else {
-        if(this.errors.includes(errorStr)){
-          this.errors.splice(this.errors.indexOf(errorStr),1);
+        if(this.errors.includes(errorStr)) {
+          this.errors.splice(this.errors.indexOf(errorStr), 1);
         }
       }
     }
     else {
-      if(this.errors.includes(errorStr)){
-        this.errors.splice(this.errors.indexOf(errorStr),1);
+      if(this.errors.includes(errorStr)) {
+        this.errors.splice(this.errors.indexOf(errorStr), 1);
       }
     }
   }
@@ -147,14 +148,18 @@ export class AuthComponent implements OnInit,OnChanges {
     }
 
     if(this.authType == 'login') {
-        const salt = bcrypt.genSaltSync(10);
         this.user.login = this.authForm.controls["login"].value;   
-        this.user.password = bcrypt.hashSync(this.authForm.controls["password"].value, salt);
-        this.authentication.checkUser(this.user).subscribe( response => {
+        this.authentication.getPassword(this.user.login).subscribe( response => {
           if(response.status == 403) {
             if(!this.errors.includes(errorLog)) {
               this.errors.push(errorLog);
             }
+          }
+          else{
+              if(bcrypt.compareSync(String(this.user.login), String(response.body))) {
+                this.cookieService.set('user', String(this.user.login));
+                this.router.navigateByUrl('/');
+              }
           }
         }, err => {
           if(err.status == 403) {
