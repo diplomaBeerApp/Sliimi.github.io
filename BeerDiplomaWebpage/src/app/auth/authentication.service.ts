@@ -25,23 +25,15 @@ export class AuthenticationService {
   }
   constructor(private http: HttpClient) { }
 
-  public checkUser(user: User): Observable<HttpResponse<User>>{
+  public getPassword(login: String): Observable<HttpResponse<String>>{
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       });
 
-    return this.http.post<User>(AuthenticationService.url + '/' + user.login, user.password, { 
+    return this.http.get<String>(AuthenticationService.url + '/' + login, { 
       headers: headers,
       observe: 'response',
-    }).pipe(
-      catchError((err) => {
-        console.log('error caught in service')
-        console.error(err);
-
-        //Handle the error here
-
-        return throwError(err);    //Rethrow it back to component
-      }));
+    });
   }
 
   public addUser(userInfo: UserInfo): Observable<HttpResponse<UserInfo>> {

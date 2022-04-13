@@ -1,6 +1,16 @@
 
 <div class="navblock">
-<ul class="nav">
+
+<div class="navMobile">
+    <button class="menuButton" mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
+    <mat-menu class="menuContainer" #menu="matMenu">
+    <button class="menuItem" onclick="window.location.href='/login'" mat-menu-item>Logowanie</button>
+    <button class="menuItem" onclick="window.location.href='/register'" mat-menu-item>Rejestracja</button>
+    <button class="menuItem" onclick="window.location.href=''" mat-menu-item>Strona Główna</button>
+    </mat-menu>
+</div>
+
+<ul class="navPc">
     <li>
         <a class="link" [routerLink]="['']" >Strona Główna</a>
     </li>
