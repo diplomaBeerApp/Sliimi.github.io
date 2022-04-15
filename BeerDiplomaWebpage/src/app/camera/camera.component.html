@@ -1,4 +1,4 @@
-<div>
+<div class="cameraWrapper">
     <webcam class="camera" [width]="width" [height]="height" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
     *ngIf="showWebcam" [switchCamera]="nextWebcamObservable" ></webcam>
     

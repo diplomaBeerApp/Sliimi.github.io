@@ -18,8 +18,8 @@ export class CameraComponent implements OnInit {
   public multipleWebcamsAvailable = false;
   public deviceId: string='';
   public videoOptions: MediaTrackConstraints = {
-  // width: {ideal: 1024},
-  // height: {ideal: 576}
+    width: {ideal: 4024},
+    height: {ideal: 2576}
   };
   public errors: WebcamInitError[] = [];
   // webcam snapshot trigger
