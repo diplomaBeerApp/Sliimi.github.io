@@ -1,14 +1,5 @@
 <h1 class="center">Strona Główna</h1>
 
-<div *ngIf="register"><p class="success">{{message}}</p></div>
-<div class="test2">
-<ngb-rating class="test"></ngb-rating>
-</div>
+<div *ngIf="register || login"><p class="success">{{message}}</p></div>
 
-<div>
-<webcam [height]="500" [width]="1000"  [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
-*ngIf="showWebcam" [switchCamera]="nextWebcamObservable" ></webcam>
 
-<div class="actionBtn" (click)="triggerSnapshot();" title="Take Picture">📸</div>
-<div class="actionBtn" (click)="showNextWebcam(true);" title="Switch Camera">🔁</div>
-</div>

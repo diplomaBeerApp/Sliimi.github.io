@@ -2,17 +2,6 @@ h1 {
     padding:20px;
 }
 
-.test {
-    color:chocolate;
-    font-size: 25px;
-}
-.test2 {
-    margin-left:auto;
-    margin-right:auto;
-    display:block;
-    width:220px;
-}
-
 .form-group {
     border-style: none;
 }
