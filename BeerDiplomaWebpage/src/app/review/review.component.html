@@ -1,1 +1,10 @@
-<p>review works!</p>
+<div class="ratingBox">
+    <fieldset class="form-group">
+        <p class="text">Jakaś nazwa piwa</p>    
+
+        <ngb-rating [(rate)]="rating" class="rating"></ngb-rating>
+        <p class="text">{{rating}}/10</p>
+        <button class="btn mobile" (click)="AddPhoto()">Dodaj Zdjęcie</button>
+        <button class="btn" type="submit">Wyślij</button>
+    </fieldset>
+</div>

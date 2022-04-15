@@ -1,5 +1,48 @@
+html {
+    width: 100%;
+    padding:0;
+}
+
+body {
+    width: 100%;
+    padding: 0;
+}
+
 h1 {
     padding:20px;
+}
+
+.mobile {
+    display: none;
+}
+
+.camera {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+
+}
+
+.testpiwo {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width:100%;
+}
+
+.ratingBox {
+    text-align: center;
+}
+
+.text {
+    font-size: 20px;
+    padding:10px;
+}
+
+.rating {
+    color: chocolate;
+    font-size: 35px;
+    padding:10px;
 }
 
 .form-group {
@@ -24,7 +67,7 @@ h1 {
     border-color:burlywood;
     width:200px;
     height:40px;
-    margin-top: 40px;
+    margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
     font-size:20px;
@@ -103,7 +146,7 @@ h1 {
     text-align: center;
     color: green;
     font-size: 20px;
-    padding:10px;
+    padding: 10px;
 }
 
 
@@ -133,6 +176,10 @@ h1 {
 
     .menuItem {
         font-size:1.2em;
+    }
+
+    .mobile {
+        display: initial;
     }
 
     .menuContainer {

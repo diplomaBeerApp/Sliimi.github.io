@@ -6,13 +6,13 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
+import { ReviewComponent } from './review/review.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import {NgbPaginationModule, NgbAlertModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { WebcamModule } from 'ngx-webcam';
 import { CameraComponent } from './camera/camera.component';
-import { ReviewComponent } from './review/review.component';
 
 @NgModule({
   declarations: [

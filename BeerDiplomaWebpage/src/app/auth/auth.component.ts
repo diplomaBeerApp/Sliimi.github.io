@@ -1,8 +1,8 @@
 import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import {Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
+import { Observable } from "rxjs";
+import { HttpClient } from "@angular/common/http";
 import { AbstractEmitterVisitor } from '@angular/compiler/src/output/abstract_emitter';
 import { AuthenticationService } from './authentication.service';
 import { User, UserInfo, Piwo } from './user';
@@ -47,14 +47,12 @@ export class AuthComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private cookieService:CookieService
-    ) {
-    }
+    ) {}
 
   ngOnInit(): void {
     if(this.cookieService.check('user')) {
       this.router.navigateByUrl('/');
     }
-
       this.route.url.subscribe(data => {
       this.authType = data[data.length - 1].path;
       this.title = (this.authType == 'login') ? 'Logowanie' : 'Rejestracja';
