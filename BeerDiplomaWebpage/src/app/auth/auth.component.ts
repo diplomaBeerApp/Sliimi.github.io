@@ -150,6 +150,7 @@ export class AuthComponent implements OnInit,OnChanges {
     if(this.authType == 'login') {
         this.user.login = this.authForm.controls["login"].value;   
         this.authentication.getPassword(this.user.login).subscribe( response => {
+          console.log(response);
           if(response.status == 403) {
             if(!this.errors.includes(errorLog)) {
               this.errors.push(errorLog);

@@ -25,12 +25,12 @@ export class AuthenticationService {
   }
   constructor(private http: HttpClient) { }
 
-  public getPassword(login: String): Observable<HttpResponse<String>>{
+  public getPassword(login: String): Observable<HttpResponse<any>>{
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       });
 
-    return this.http.get<String>(AuthenticationService.url + '/' + login, { 
+    return this.http.get<any>(AuthenticationService.url + '/' + login, { 
       headers: headers,
       observe: 'response',
     });
