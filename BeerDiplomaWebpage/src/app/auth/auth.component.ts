@@ -15,7 +15,7 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./auth.component.css']
 })
 
-export class AuthComponent implements OnInit,OnChanges {
+export class AuthComponent implements OnInit {
   authType: String = '';
   title: String = '';
   value: String ='begin';
@@ -51,6 +51,10 @@ export class AuthComponent implements OnInit,OnChanges {
     }
 
   ngOnInit(): void {
+    if(this.cookieService.check('user')) {
+      this.router.navigateByUrl('/');
+    }
+
       this.route.url.subscribe(data => {
       this.authType = data[data.length - 1].path;
       this.title = (this.authType == 'login') ? 'Logowanie' : 'Rejestracja';
@@ -85,6 +89,16 @@ export class AuthComponent implements OnInit,OnChanges {
   }
 
   checkPassword(): void {
+    const errorLog = "Błędny login lub hasło";
+    const errorLogUser = "Nie ma takiego użytkownika";
+    if(this.errors.includes(errorLog)) {
+      this.errors.splice(this.errors.indexOf(errorLog),1);
+    }
+    
+    if(this.errors.includes(errorLogUser)) {
+      this.errors.splice(this.errors.indexOf(errorLogUser),1);
+    }
+
     if(this.authType == 'register')
     {
       const errorStr = "Podane hasła są różne";
@@ -129,16 +143,24 @@ export class AuthComponent implements OnInit,OnChanges {
   }
 
   checkLogin(): void { 
+    const errorLog = "Błędny login lub hasło";
+    const errorLogUser = "Nie ma takiego użytkownika";
+
+    if(this.errors.includes(errorLog)) {
+      this.errors.splice(this.errors.indexOf(errorLog),1);
+    }
+    
+    if(this.errors.includes(errorLogUser)) {
+      this.errors.splice(this.errors.indexOf(errorLogUser),1);
+    }
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
-  }
 
   onSubmit() : void {
     const errorReg = "Już istnieje uzytkownik o podanym loginie";
     const successReg = "Wow! właśnie założyłeś konto";
     const errorLog = "Błędny login lub hasło";
+    const errorLogUser = "Nie ma takiego użytkownika";
     if(this.errors.includes(errorReg)) {
       this.errors.splice(this.errors.indexOf(errorReg),1);
     }
@@ -146,29 +168,44 @@ export class AuthComponent implements OnInit,OnChanges {
     if(this.errors.includes(errorLog)) {
       this.errors.splice(this.errors.indexOf(errorLog),1);
     }
+    
+    if(this.errors.includes(errorLogUser)) {
+      this.errors.splice(this.errors.indexOf(errorLogUser),1);
+    }
 
     if(this.authType == 'login') {
         this.user.login = this.authForm.controls["login"].value;   
+        this.user.password = this.authForm.controls["password"].value;
         this.authentication.getPassword(this.user.login).subscribe( response => {
-          console.log(response);
-          if(response.status == 403) {
-            if(!this.errors.includes(errorLog)) {
-              this.errors.push(errorLog);
+          if(response.status == 500) {
+            if(!this.errors.includes(errorLogUser)) {
+              this.errors.push(errorLogUser);
+              this.processing = false;
             }
           }
           else{
-              if(bcrypt.compareSync(String(this.user.login), String(response.body))) {
+              if(bcrypt.compareSync(String(this.user.password), String(response.body.content))) {
                 this.cookieService.set('user', String(this.user.login));
+                this.cookieService.set("reloadOnce",'');
                 this.router.navigateByUrl('/');
+              }
+              else{
+                if(!this.errors.includes(errorLog)) {
+                  this.errors.push(errorLog);
+                  this.processing = false;
+                }
               }
           }
         }, err => {
-          if(err.status == 403) {
-            if(!this.errors.includes(errorLog)) {
-              this.errors.push(errorLog);
+          if(err.status == 500) {
+            if(!this.errors.includes(errorLogUser)) {
+              this.errors.push(errorLogUser);
+              this.processing = false;
             }
           }
         });
+        
+        this.processing = true;
     }  
     else{
       if(this.errors.length == 0) {
@@ -177,11 +214,11 @@ export class AuthComponent implements OnInit,OnChanges {
         this.userInfo.login = this.authForm.controls["login"].value;
         this.userInfo.password = bcrypt.hashSync(this.authForm.controls["password"].value, salt);
         this.userInfo.email = this.authForm.controls["email"].value;
-        console.log(this.userInfo);
         this.authentication.addUser(this.userInfo).subscribe(response => {
           if(response.status == 204) {
             if(!this.errors.includes(successReg)) {
               this.errors.push(successReg);
+              this.processing = false;
             }
             sessionStorage.setItem('userRegister','Rejestracja użytkownika ' + this.userInfo.login + ' powiodła się');
             this.router.navigateByUrl('/');
@@ -190,11 +227,13 @@ export class AuthComponent implements OnInit,OnChanges {
           if(response.status == 400) {
             if(!this.errors.includes(errorReg)) {
               this.errors.push(errorReg);
+              this.processing = false;
             }
           }
         },err => {
           if(!this.errors.includes(errorReg)) {
             this.errors.push(errorReg);
+            this.processing = false;
           }
         });
 

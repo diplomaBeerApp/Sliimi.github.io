@@ -1,0 +1,7 @@
+<div>
+    <webcam [height]="500" [width]="1000"  [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
+    *ngIf="showWebcam" [switchCamera]="nextWebcamObservable" ></webcam>
+    
+    <div class="actionBtn" (click)="triggerSnapshot();" title="Take Picture">📸</div>
+    <div class="actionBtn" (click)="showNextWebcam(true);" title="Switch Camera">🔁</div>
+</div>

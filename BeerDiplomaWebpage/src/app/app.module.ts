@@ -11,12 +11,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import {NgbPaginationModule, NgbAlertModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { WebcamModule } from 'ngx-webcam';
+import { CameraComponent } from './camera/camera.component';
+import { ReviewComponent } from './review/review.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     HeaderComponent,
+    CameraComponent,
+    ReviewComponent,
   ],
   imports: [
     BrowserModule,
