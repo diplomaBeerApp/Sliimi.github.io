@@ -1,1 +1,14 @@
-<p>beer-list works!</p>
+<h1 class="center">{{title}}</h1>
+
+<table class="table center">
+  <tr>
+    <th>Nazwa</th>
+    <th>Browar</th>
+    <th>Styl</th>
+  </tr>
+  <tr *ngFor="let beer of beers">
+    <td><a routerLink="./{{beer.beerId}}">{{beer.name}}</a></td>
+    <td>{{beer.brewery}}</td>
+    <td>{{beer.style}}</td>
+  </tr>
+</table>

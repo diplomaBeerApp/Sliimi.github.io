@@ -5,7 +5,7 @@ import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { AbstractEmitterVisitor } from '@angular/compiler/src/output/abstract_emitter';
 import { AuthenticationService } from './authentication.service';
-import { User, UserInfo, Piwo } from './user';
+import { User, UserInfo } from './user';
 import * as bcrypt from 'bcryptjs';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -29,7 +29,7 @@ export class AuthComponent implements OnInit {
     password:'',
   };
 
-  
+
   user: User = {
     login:'',
     password:'',
@@ -92,7 +92,7 @@ export class AuthComponent implements OnInit {
     if(this.errors.includes(errorLog)) {
       this.errors.splice(this.errors.indexOf(errorLog),1);
     }
-    
+
     if(this.errors.includes(errorLogUser)) {
       this.errors.splice(this.errors.indexOf(errorLogUser),1);
     }
@@ -114,10 +114,10 @@ export class AuthComponent implements OnInit {
             }
           }
         }
-        
+
         const regularExpression = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
         if(!regularExpression.test(String(this.authForm.controls["password"].value))) { //check if password is "smart"
-        
+
           if(!this.errors.includes(errorStr2)) {
             this.errors.push(errorStr2);
           }
@@ -140,14 +140,14 @@ export class AuthComponent implements OnInit {
     }
   }
 
-  checkLogin(): void { 
+  checkLogin(): void {
     const errorLog = "Błędny login lub hasło";
     const errorLogUser = "Nie ma takiego użytkownika";
 
     if(this.errors.includes(errorLog)) {
       this.errors.splice(this.errors.indexOf(errorLog),1);
     }
-    
+
     if(this.errors.includes(errorLogUser)) {
       this.errors.splice(this.errors.indexOf(errorLogUser),1);
     }
@@ -166,13 +166,13 @@ export class AuthComponent implements OnInit {
     if(this.errors.includes(errorLog)) {
       this.errors.splice(this.errors.indexOf(errorLog),1);
     }
-    
+
     if(this.errors.includes(errorLogUser)) {
       this.errors.splice(this.errors.indexOf(errorLogUser),1);
     }
 
     if(this.authType == 'login') {
-        this.user.login = this.authForm.controls["login"].value;   
+        this.user.login = this.authForm.controls["login"].value;
         this.user.password = this.authForm.controls["password"].value;
         this.authentication.getPassword(this.user.login).subscribe( response => {
           if(response.status == 500) {
@@ -202,9 +202,9 @@ export class AuthComponent implements OnInit {
             }
           }
         });
-        
+
         this.processing = true;
-    }  
+    }
     else{
       if(this.errors.length == 0) {
 

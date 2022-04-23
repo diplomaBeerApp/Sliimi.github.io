@@ -12,7 +12,7 @@ export class User{
     public img: String='';
 
     constructor() { }
- 
+
 }
 */
 
@@ -25,13 +25,4 @@ export interface UserInfo{
     email: String;
     login: String;
     password: String;
-}
-
-export interface Piwo{
-    name: String;
-    style: String;
-    brewery: String;
-    abv: String;
-    ibu: String;
-    img: String;
 }
