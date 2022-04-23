@@ -7,6 +7,7 @@
     <button class="menuItem" *ngIf="!logged" [routerLink]="['/login']" mat-menu-item>Logowanie</button>
     <button class="menuItem" *ngIf="!logged" [routerLink]="['/register']" mat-menu-item>Rejestracja</button>
     <button class="menuItem" [routerLink]="['']" mat-menu-item>Strona Główna</button>
+    <button class="menuItem" [routerLink]="['/beer-list']" mat-menu-item>Lista Piw</button>
     <button class="menuItem" *ngIf="logged" (click)="logOut()" mat-menu-item>Wyloguj</button>
     </mat-menu>
 
@@ -17,7 +18,11 @@
         <a class="link" [routerLink]="['']" >Strona Główna</a>
     </li>
 
-    <li>      
+    <li>
+        <a class="link" [routerLink]="['/beer-list']" >Lista Piw</a>
+    </li>
+
+    <li>
         <a class="link" *ngIf="!logged" [routerLink]="['/login']" >Logowanie</a>
     </li>
 
@@ -26,7 +31,7 @@
     </li>
 
     <li>
-        <a class="link"  *ngIf="logged" (click)="logOut()" >Wyloguj</a>    
+        <a class="link"  *ngIf="logged" (click)="logOut()" >Wyloguj</a>
     </li>
 </ul>
 </div>
