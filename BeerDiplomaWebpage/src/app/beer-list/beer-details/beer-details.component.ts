@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
 import {BeerListService} from "../beer-list.service";
-import {BeerFullInfo} from "../beer";
+import {BeerFullInfo, BeerReview} from "../beer";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-beer-details',
@@ -21,7 +22,14 @@ export class BeerDetailsComponent implements OnInit {
     ibu: "",
     img: "",
   };
-  rating: number = 0;
+  rating: number = 1;
+  userId: string = '';
+
+  review: BeerReview ={
+    login: '',
+    stars: 1,
+    beerId: '',
+  }
 
   constructor(
     private service: BeerListService,
@@ -38,8 +46,23 @@ export class BeerDetailsComponent implements OnInit {
       this.beer = data.body.content;
       this.beer.ibu = (this.beer.ibu == "N/A") ? 'Brak Danych' : this.beer.ibu;
       this.beer.abv = (this.beer.abv == "N/A") ? 'Brak Danych' : this.beer.abv;
-      console.log(this.beer);
     });
+    this.userId = this.cookieService.get("user");
+    console.log(this.userId);
   }
 
+  onSubmit() : void {
+    this.review.login = this.userId;
+    this.review.stars = this.rating;
+    this.review.beerId = this.id.toString();
+    this.service.addReview(this.review).subscribe(response => {
+      if(response.status == 204) {
+        sessionStorage.setItem('userRegister','Dodanie recenzji powiodło się');
+        this.router.navigateByUrl('/');
+      }
+
+    },err => {
+      console.log('błąd przy wysyłaniu recenzji');
+    });
+  }
 }
