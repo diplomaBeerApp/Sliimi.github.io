@@ -14,3 +14,9 @@ export interface BeerFullInfo {
   ibu: String;
   img: String;
 }
+
+export interface BeerReview {
+  login: String;
+  stars: number;
+  beerId: String;
+}

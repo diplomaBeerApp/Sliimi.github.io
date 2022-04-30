@@ -8,16 +8,18 @@
 </ul>
 
 
-<div class="ratingBox">
+<div class="ratingBox" *ngIf="userId != ''">
   <hr>
+  <form (ngSubmit)="onSubmit()">
   <h3 class="center">Dodaj Swoją Ocenę</h3>
   <fieldset class="form-group">
-    <ngb-rating [(rate)]="rating" class="rating"></ngb-rating>
+    <ngb-rating [(rate)]="rating" class="rating" ></ngb-rating>
     <p class="text">{{rating}}/10</p>
     <button class="btn" type="submit">Wyślij</button>
   </fieldset>
+  </form>
 </div>
-<div>
+<div *ngIf="userId != ''">
   <hr>
   <h3 class="center">Dodaj Swoje Zdjęcie</h3>
 </div>
