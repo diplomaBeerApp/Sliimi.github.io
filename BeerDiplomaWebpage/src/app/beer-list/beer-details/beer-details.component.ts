@@ -28,8 +28,12 @@ export class BeerDetailsComponent implements OnInit {
   review: BeerReview ={
     login: '',
     stars: 1,
-    beerId: '',
+    beer_id: '',
   }
+
+  reviewForm = new FormGroup({
+    stars: new FormControl(''),
+  });
 
   constructor(
     private service: BeerListService,
@@ -53,16 +57,17 @@ export class BeerDetailsComponent implements OnInit {
 
   onSubmit() : void {
     this.review.login = this.userId;
-    this.review.stars = this.rating;
-    this.review.beerId = this.id.toString();
+    this.review.stars = parseInt(this.reviewForm.controls["stars"].value);
+    this.review.beer_id = this.id.toString();
     this.service.addReview(this.review).subscribe(response => {
+      console.log(response)
       if(response.status == 204) {
-        sessionStorage.setItem('userRegister','Dodanie recenzji powiodło się');
-        this.router.navigateByUrl('/');
+        //sessionStorage.setItem('userRegister','Dodanie recenzji powiodło się');
+        //this.router.navigateByUrl('/');
       }
 
     },err => {
-      console.log('błąd przy wysyłaniu recenzji');
+     // console.log('błąd przy wysyłaniu recenzji');
     });
   }
 }

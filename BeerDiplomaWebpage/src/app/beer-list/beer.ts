@@ -18,5 +18,5 @@ export interface BeerFullInfo {
 export interface BeerReview {
   login: String;
   stars: number;
-  beerId: String;
+  beer_id: String;
 }
