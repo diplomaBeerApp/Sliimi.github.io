@@ -176,7 +176,7 @@
     "symbol-observable" "4.0.0"
     "uuid" "8.3.2"
 
-"@angular/common@^13.0.0", "@angular/common@^13.0.0 || ^14.0.0-0", "@angular/common@~13.3.3", "@angular/common@13.3.3":
+"@angular/common@^13.0.0", "@angular/common@^13.0.0 || ^14.0.0-0", "@angular/common@>=7.0.0 <=13.0.0 || ^13.0.0", "@angular/common@~13.3.3", "@angular/common@13.3.3":
   "integrity" "sha512-W5rZyuilGAA+tHoTbvHHu11efUBssiiX9BKg2rQAwbdnG+hZfNs0ze28Y+2bwjTDkbLsXsQwm30gs2uie7aMyA=="
   "resolved" "https://registry.npmjs.org/@angular/common/-/common-13.3.3.tgz"
   "version" "13.3.3"
@@ -206,7 +206,7 @@
   dependencies:
     "tslib" "^2.3.0"
 
-"@angular/core@^13.0.0", "@angular/core@^13.0.0 || ^14.0.0-0", "@angular/core@~13.3.3", "@angular/core@13.3.3":
+"@angular/core@^13.0.0", "@angular/core@^13.0.0 || ^14.0.0-0", "@angular/core@>=7.0.0 <=13.0.0 || ^13.0.0", "@angular/core@~13.3.3", "@angular/core@13.3.3":
   "integrity" "sha512-zVsAuR1qT2QEUXDk8ANs+pCnxH7ckKAD+rJXoxI1Br94Ey1o7lNXu/GPJtTqxDbsRd7sGqMMQRti36t2CA5QhA=="
   "resolved" "https://registry.npmjs.org/@angular/core/-/core-13.3.3.tgz"
   "version" "13.3.3"
@@ -5424,6 +5424,13 @@
   "integrity" "sha512-WxuLrZROWf59DfPPstPsrS18nxtPvT+uJ4AEjFs57NqtTfYdRQXhVJ02fZ4WP4VPElI8o6qndNL7gi9tkEdg4Q=="
   "resolved" "https://registry.npmjs.org/ngx-cookie-service/-/ngx-cookie-service-13.2.0.tgz"
   "version" "13.2.0"
+  dependencies:
+    "tslib" "^2.0.0"
+
+"ngx-device-detector@^3.0.0":
+  "integrity" "sha512-mzegvxnNTDkHTxh+UeWnCUgZ91/XDOcN2kj8aCupvA7wNgDc/NZ0L90feKJsc+wES7IWq0/DIIKq2F732WOkfw=="
+  "resolved" "https://registry.npmjs.org/ngx-device-detector/-/ngx-device-detector-3.0.0.tgz"
+  "version" "3.0.0"
   dependencies:
     "tslib" "^2.0.0"
 

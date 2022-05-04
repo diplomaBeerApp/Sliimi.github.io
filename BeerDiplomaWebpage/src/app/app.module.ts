@@ -12,8 +12,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import {NgbPaginationModule, NgbAlertModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { WebcamModule } from 'ngx-webcam';
-import { CameraComponent } from './camera/camera.component';
 
 
 @NgModule({
@@ -21,7 +19,6 @@ import { CameraComponent } from './camera/camera.component';
     AppComponent,
     HomeComponent,
     HeaderComponent,
-    CameraComponent,
     ReviewComponent,
   ],
   imports: [
@@ -33,7 +30,6 @@ import { CameraComponent } from './camera/camera.component';
     BrowserAnimationsModule,
     MatIconModule,
     NgbModule,
-    WebcamModule
   ],
   bootstrap: [AppComponent]
 })

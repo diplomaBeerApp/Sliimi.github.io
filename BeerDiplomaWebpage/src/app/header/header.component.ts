@@ -16,7 +16,6 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     if(this.cookieService.check('user')) {
       this.logged = true;
-
     }
   }
 

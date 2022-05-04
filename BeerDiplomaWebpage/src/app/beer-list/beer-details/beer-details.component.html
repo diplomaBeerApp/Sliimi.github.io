@@ -10,8 +10,8 @@
 
 <div class="ratingBox" *ngIf="userId != ''">
   <hr>
-  <form  [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
   <h3 class="center">Dodaj Swoją Ocenę</h3>
+  <form  [formGroup]="reviewForm" (ngSubmit)="onSubmitReview()">
   <fieldset class="form-group">
     <ngb-rating formControlName="stars" [(rate)]="rating" class="rating" ></ngb-rating>
     <p class="text">{{rating}}/10</p>
@@ -22,4 +22,12 @@
 <div *ngIf="userId != ''">
   <hr>
   <h3 class="center">Dodaj Swoje Zdjęcie</h3>
+  <form  [formGroup]="photoForm" (ngSubmit)="onSubmitPhoto()">
+    <fieldset class="form-group center">
+      <input type="file" formControlName="file" class="form-control" accept=".jpg, .png, .jpeg, .bmp, .tif, .tiff|image/*" (change)="onFileChange($event)">
+      <button class="btn" type="submit">Wyślij</button>
+    </fieldset>
+  </form>
+
+  <button class="btn" routerLink="./camera" >Włącz aparat</button><!--*ngIf="!isDesktop"-->
 </div>

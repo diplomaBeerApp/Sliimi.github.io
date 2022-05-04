@@ -19,7 +19,7 @@
     </li>
 
     <li>
-        <a class="link" [routerLink]="['/beer-list']" >Lista Piw</a>
+        <a class="link" [routerLink]="['/beer-list']" *ngIf="logged == true">Lista Piw</a>
     </li>
 
     <li>
