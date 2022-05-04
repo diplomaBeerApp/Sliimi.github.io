@@ -1,6 +1,9 @@
 import { Component, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
+import {BeerListService} from "../beer-list/beer-list.service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'camera',
@@ -37,15 +40,26 @@ export class CameraComponent implements OnInit {
     this.height = win.innerHeight;
   }
 
-  constructor() {
-    this.onResize();
-   }
+  constructor(
+    private service: BeerListService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private cookieService:CookieService,)
+    {
+      this.onResize();
+    }
+  id: number = 0;
+  imageToSend: File = new File(new Array<BlobPart>(),'');
+
   ngOnInit(): void {
     WebcamUtil.getAvailableVideoInputs()
     .then((mediaDevices: MediaDeviceInfo[]) => {
     this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
     });
     console.log(sessionStorage.getItem('userRegister'));
+    this.route.url.subscribe(data => {
+      this.id = +data[data.length - 2].path;
+    });
   }
 
   public triggerSnapshot(): void {
@@ -64,9 +78,30 @@ export class CameraComponent implements OnInit {
     this.nextWebcam.next(directionOrDeviceId);
   }
 
+  private convertDataUrlToBlob(dataUrl: any): Blob {
+    const arr = dataUrl.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new Blob([u8arr], {type: mime});
+  }
+
   public handleImage(webcamImage: WebcamImage): void {
     console.info('received webcam image', webcamImage);
     this.pictureTaken.emit(webcamImage);
+    this.imageToSend = new File([this.convertDataUrlToBlob(webcamImage.imageAsDataUrl)], '', {type: `image/jpeg`});
+    this.service.getPhotoUrl(this.id).subscribe(data => {
+      let url = data.body.content;
+      this.service.uploadPhoto(url, this.imageToSend).subscribe(response => {
+        console.log(response)
+      });
+    });
   }
 
   public cameraWasSwitched(deviceId: string): void {

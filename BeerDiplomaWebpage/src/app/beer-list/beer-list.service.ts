@@ -64,14 +64,9 @@ export class BeerListService {
   }
 
   public uploadPhoto(url: string, photoData: File): Observable<HttpResponse<any>>{
-    let headers = new HttpHeaders({
-      'Content-Type': 'image/jpeg',
-    });
     return this.http.put(url, photoData, {
-      headers: headers,
       observe: 'response',
     });
   }
-
 
 }
