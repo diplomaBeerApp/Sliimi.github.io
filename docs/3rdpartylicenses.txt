@@ -764,6 +764,9 @@ MIT
 ngx-cookie-service
 MIT
 
+ngx-device-detector
+MIT
+
 ngx-webcam
 MIT
 MIT License
