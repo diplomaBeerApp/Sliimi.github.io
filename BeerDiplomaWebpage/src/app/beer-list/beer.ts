@@ -13,6 +13,7 @@ export interface BeerFullInfo {
   abv: String;
   ibu: String;
   img: String;
+  review: number;
 }
 
 export interface BeerReview {
