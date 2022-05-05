@@ -31,6 +31,12 @@ export class BeerListService {
     } );
   }
 
+  public getBeersWithQuery(query: string, start: number, limit: number): Observable<HttpResponse<any>>{
+    return this.http.get<any>(BeerListService.urlBeers + '?queryPhrase=' + query + '&limit=' + limit + '&start=' + start, {
+      observe: 'response',
+    } );
+  }
+
   public getBeer(id :number, user: String): Observable<HttpResponse<any>> {
     return this.http.get<any>(BeerListService.urlBeers+'/'+id+ '?login=' + user, {
       observe: 'response',
