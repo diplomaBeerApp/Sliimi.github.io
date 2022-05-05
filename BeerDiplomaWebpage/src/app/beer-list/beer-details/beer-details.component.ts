@@ -112,11 +112,11 @@ export class BeerDetailsComponent implements OnInit {
   }
 
   onSubmitPhoto() : void {
-  this.service.getPhotoUrl(this.id).subscribe(data => {
-    let url = data.body.content;
-    this.service.uploadPhoto(url, this.fileToUpload).subscribe(response => {
-      console.log(response)
+    this.service.getPhotoUrl(this.id).subscribe(data => {
+      let url = data.body.content;
+      this.service.uploadPhoto(url, this.fileToUpload).subscribe(response => {
+        console.log(response)
+      });
     });
-  });
   }
 }
