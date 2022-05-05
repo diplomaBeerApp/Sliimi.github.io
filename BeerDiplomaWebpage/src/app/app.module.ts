@@ -12,6 +12,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import {NgbPaginationModule, NgbAlertModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import {NgbPaginationModule, NgbAlertModule, NgbModule} from '@ng-bootstrap/ng-b
     MatIconModule,
     NgbModule,
   ],
-  bootstrap: [AppComponent]
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
