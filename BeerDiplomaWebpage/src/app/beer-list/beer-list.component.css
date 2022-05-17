@@ -1,0 +1,11 @@
+.listed-beer-css{
+  width: 85%;
+  border-color: chocolate;
+  border-width: thin;
+  border-style: solid;
+  border-right: none;
+  border-left: none;
+  padding-left: 5%;
+  margin-left: 5%;
+  margin-bottom: 3px;
+}

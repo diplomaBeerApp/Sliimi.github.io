@@ -12,7 +12,6 @@ import { DeviceDetectorService } from 'ngx-device-detector';
   styleUrls: ['./beer-details.component.css']
 })
 export class BeerDetailsComponent implements OnInit {
-  title: String = 'Detale Piwa';
   id: number = 0;
   beer: BeerFullInfo = {
     beerId: 0,
@@ -24,11 +23,11 @@ export class BeerDetailsComponent implements OnInit {
     img: "",
     review: 0,
   };
-  rating: number = 0;
   userId: string = '';
-  wasReviewedBefore: boolean = false;
   isDesktop:boolean = true;
 
+  rating: number = 0;
+  wasReviewedBefore: boolean = false;
   review: BeerReview ={
     login: '',
     stars: 0,

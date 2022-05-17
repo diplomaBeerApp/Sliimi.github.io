@@ -176,7 +176,7 @@
     "symbol-observable" "4.0.0"
     "uuid" "8.3.2"
 
-"@angular/common@^13.0.0", "@angular/common@^13.0.0 || ^14.0.0-0", "@angular/common@>=7.0.0 <=13.0.0 || ^13.0.0", "@angular/common@~13.3.3", "@angular/common@13.3.3":
+"@angular/common@^13.0.0", "@angular/common@^13.0.0 || ^14.0.0-0", "@angular/common@^13.1.0", "@angular/common@>=7.0.0 <=13.0.0 || ^13.0.0", "@angular/common@~13.3.3", "@angular/common@13.3.3":
   "integrity" "sha512-W5rZyuilGAA+tHoTbvHHu11efUBssiiX9BKg2rQAwbdnG+hZfNs0ze28Y+2bwjTDkbLsXsQwm30gs2uie7aMyA=="
   "resolved" "https://registry.npmjs.org/@angular/common/-/common-13.3.3.tgz"
   "version" "13.3.3"
@@ -206,7 +206,7 @@
   dependencies:
     "tslib" "^2.3.0"
 
-"@angular/core@^13.0.0", "@angular/core@^13.0.0 || ^14.0.0-0", "@angular/core@>=7.0.0 <=13.0.0 || ^13.0.0", "@angular/core@~13.3.3", "@angular/core@13.3.3":
+"@angular/core@^13.0.0", "@angular/core@^13.0.0 || ^14.0.0-0", "@angular/core@^13.1.0", "@angular/core@>=7.0.0 <=13.0.0 || ^13.0.0", "@angular/core@~13.3.3", "@angular/core@13.3.3":
   "integrity" "sha512-zVsAuR1qT2QEUXDk8ANs+pCnxH7ckKAD+rJXoxI1Br94Ey1o7lNXu/GPJtTqxDbsRd7sGqMMQRti36t2CA5QhA=="
   "resolved" "https://registry.npmjs.org/@angular/core/-/core-13.3.3.tgz"
   "version" "13.3.3"
@@ -5438,6 +5438,13 @@
   "version" "3.0.0"
   dependencies:
     "tslib" "^2.0.0"
+
+"ngx-infinite-scroll@^13.0.2":
+  "integrity" "sha512-RSezL0DUxo1B57SyRMOSt3a/5lLXJs6P8lavtxOh10uhX+hn662cMYHUO7LiU2a/vJxef2R020s4jkUqhnXTcg=="
+  "resolved" "https://registry.npmjs.org/ngx-infinite-scroll/-/ngx-infinite-scroll-13.0.2.tgz"
+  "version" "13.0.2"
+  dependencies:
+    "tslib" "^2.3.0"
 
 "ngx-webcam@^0.4.1":
   "integrity" "sha512-8WoC8GWHaN5tH+4zO0/gfUigVKg/jX7JShAewpumJIgJXFmlKhSPnPjewNNxv7OTQiOOb+5Mh6lhTo52VLlY9A=="

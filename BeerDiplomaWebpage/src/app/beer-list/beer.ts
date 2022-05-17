@@ -1,23 +1,29 @@
 export interface Beer {
   beerId: number;
-  name: String;
-  brewery: String;
-  style: String;
+  name: string;
+  brewery: string;
+  style: string;
+  abv: string;
+  ibu: string;
+  mainPhotoUrl: string;
+  image: any;
+  review: number;
+  tags: Array<any>;
 }
 
 export interface BeerFullInfo {
   beerId: number;
-  name: String;
-  brewery: String;
-  style: String;
-  abv: String;
-  ibu: String;
-  img: String;
+  name: string;
+  brewery: string;
+  style: string;
+  abv: string;
+  ibu: string;
+  img: string;
   review: number;
 }
 
 export interface BeerReview {
-  login: String;
+  login: string;
   stars: number;
-  beer_id: String;
+  beer_id: string;
 }

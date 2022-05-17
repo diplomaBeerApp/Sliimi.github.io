@@ -9,14 +9,17 @@ const routes: Routes = [
     path: 'beer-list',
     component: BeerListComponent
   },
+  /*
   {
     path: 'beer-list/:id',
     component: BeerDetailsComponent
   },
+  /*
   {
     path: 'beer-list/:id/camera',
     component: BeerPhotoComponent
   }
+  */
 ];
 
 

@@ -9,6 +9,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { CameraComponent } from '../camera/camera.component';
 import { WebcamModule } from 'ngx-webcam';
 import {BeerPhotoComponent} from "./beer-photo/beer-photo.component";
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [ BeerListComponent, BeerDetailsComponent, CameraComponent, BeerPhotoComponent ],
@@ -18,6 +19,7 @@ import {BeerPhotoComponent} from "./beer-photo/beer-photo.component";
     ReactiveFormsModule,
     NgbModule,
     WebcamModule,
+    InfiniteScrollModule,
   ],
   providers: [ CookieService ],
   bootstrap: [ BeerListComponent ]
