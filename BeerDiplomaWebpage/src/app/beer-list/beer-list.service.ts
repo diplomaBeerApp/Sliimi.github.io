@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpErrorResponse, HttpParams } 
 import { Observable, catchError,throwError } from 'rxjs';
 import { BeerReview } from "./beer";
 import {Byte} from "@angular/compiler/src/util";
+import {SafeHtml} from "@angular/platform-browser";
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +32,8 @@ export class BeerListService {
     } );
   }
 
-  public getBeersWithQuery(query: string, start: number, limit: number): Observable<HttpResponse<any>>{
-    return this.http.get<any>(BeerListService.urlBeers + '?queryPhrase=' + query + '&limit=' + limit + '&start=' + start, {
+  public getBeersWithQuery(query: string, start: number, limit: number, login: string): Observable<HttpResponse<any>>{
+    return this.http.get<any>(BeerListService.urlBeers + '?queryPhrase=' + query + '&limit=' + limit + '&start=' + start + '&login=' + login, {
       observe: 'response',
     } );
   }
@@ -73,6 +74,10 @@ export class BeerListService {
     return this.http.put(url, photoData, {
       observe: 'response',
     });
+  }
+
+  getImage(url: any): Observable<Blob> {
+    return this.http.get(url, { responseType: 'blob' });
   }
 
 }

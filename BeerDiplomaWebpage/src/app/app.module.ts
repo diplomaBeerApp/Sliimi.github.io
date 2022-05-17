@@ -13,6 +13,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import {NgbPaginationModule, NgbAlertModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {NetworkInterceptor} from "./network.interceptor";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+
 
 
 @NgModule({
@@ -31,8 +35,12 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     BrowserAnimationsModule,
     MatIconModule,
     NgbModule,
+    MatProgressSpinnerModule,
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+    { provide: HTTP_INTERCEPTORS, useClass: NetworkInterceptor, multi: true,},
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

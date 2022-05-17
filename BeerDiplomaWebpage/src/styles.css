@@ -18,6 +18,15 @@ html {
 body {
     width: 100%;
     padding: 0;
+    background: #161616;
+}
+
+p,h1,h2,h3 {
+  color: floralwhite;
+}
+
+hr {
+  color: chocolate;
 }
 
 h1 {
@@ -153,7 +162,7 @@ h1 {
     border-color:chocolate;
 }
 
-.list { 
+.list {
     text-align: center;
     list-style-position: inside;
 }
@@ -186,14 +195,14 @@ h1 {
         width: 90%;
         font-size:1.2em;
     }
-    
+
     .navPc {
         display:none;
     }
 
     .navMobile {
         display: initial;
-    }   
+    }
 
     .menuButton {
         border:none;
