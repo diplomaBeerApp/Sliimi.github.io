@@ -812,10 +812,16 @@ PERFORMANCE OF THIS SOFTWARE.
 minimalistic-crypto-utils
 MIT
 
+ng-multiselect-dropdown
+MIT
+
 ngx-cookie-service
 MIT
 
 ngx-device-detector
+MIT
+
+ngx-infinite-scroll
 MIT
 
 ngx-webcam
