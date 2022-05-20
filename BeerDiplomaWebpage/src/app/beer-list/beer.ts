@@ -27,3 +27,9 @@ export interface BeerReview {
   stars: number;
   beer_id: string;
 }
+
+export interface TagsReview {
+  login: string;
+  tags: Array<any>;
+  beer_id: string;
+}
