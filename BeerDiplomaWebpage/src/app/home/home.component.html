@@ -1,7 +1,23 @@
 <h1 class="center">Strona Główna</h1>
 
     <div *ngIf="register || login"><p class="success">{{message}}</p></div>
-
+    <div class="center" *ngIf="login">
+      <p>Number of Reviews: {{statistics.numberOfReviews}}</p>
+      <p>Number of Reviews: {{statistics.numberOfPhotos}}</p>
+      <div class="center">
+        <div *ngFor="let beer of statistics.lastThreeReviews" class="statistics-beer-css row flex-grow-1">
+          <div class="flex-column" style="width: 35%;">
+            <img [src]="beer.image" height="150" width="100" alt="Brak Zdjęcia Piwa" style="margin-bottom: 50px">
+          </div>
+          <div class="flex-column" style="width: 65%;">
+            <h2>{{beer.name}}</h2>
+            <p>Browar: {{beer.brewery}}</p>
+            <p>Styl: {{beer.style}}</p>
+            <p>Ocena: {{beer.review}}/10</p>
+          </div>
+        </div>
+      </div>
+    </div>
 <div class="testpiwo">
   <!--<camera></camera> -->
 </div>

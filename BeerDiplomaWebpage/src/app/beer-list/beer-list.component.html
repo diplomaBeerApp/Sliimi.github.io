@@ -1,19 +1,20 @@
 <div *ngIf="isDesktop" class="row flex-grow-1 overflow-hidden">
-  <div style="width: 29%; height: 90vh !important;" class="vh-100 overflow-auto">
+  <div style="width: 29%; height: 90vh !important;" class="overflow-auto">
     <h1 class="center">{{title}}</h1>
 
     <input type="text" class="form" placeholder="Szukaj" (input)="onSearchChange($event)" style="margin-bottom: 20px">
 
     <div class="flex-column">
       <div *ngFor="let beer of beers" (click)="onBeerChange(beer.beerId)" class="listed-beer-css row flex-grow-1">
-          <div class="flex-column" style="width: 65%;">
-            <h2>{{beer.name}}</h2>
-            <p>Browar: {{beer.brewery}}</p>
-            <p>Styl: {{beer.style}}</p>
-          </div>
-          <div class="flex-column" style="width: 35%;">
-            <img [src]="beer.image" height="150" width="100" alt="Brak Zdjęcia Piwa">
-          </div>
+        <div class="flex-column" style="width: 35%;">
+          <img [src]="beer.image" height="150" width="100" alt="Brak Zdjęcia Piwa" style="margin-bottom: 50px">
+        </div>
+        <div class="flex-column" style="width: 65%;">
+          <h2>{{beer.name}}</h2>
+          <p>Browar: {{beer.brewery}}</p>
+          <p>Styl: {{beer.style}}</p>
+          <p *ngIf="beer.review != null">Ocena: {{beer.review}}/10</p>
+        </div>
       </div>
     </div>
     <div>
@@ -25,12 +26,10 @@
     <h1 class="center">{{selectedBeer.name}}</h1>
 
     <ul class="center">
-      <p>
       <li>Browar: {{selectedBeer.brewery}}</li>
       <li>Styl: {{selectedBeer.style}}</li>
       <li>ABV: {{selectedBeer.abv}}</li>
       <li>IBU: {{selectedBeer.ibu}}</li>
-      </p>
     </ul>
 
     <div class="ratingBox">
@@ -44,6 +43,24 @@
         </fieldset>
       </form>
     </div>
+
+    <div>
+      <hr>
+      <h3 class="center">Wybierz tagi</h3>
+      <form  [formGroup]="tagsForm" (ngSubmit)="onSubmitTags()">
+        <fieldset class="form-group center">
+          <ng-multiselect-dropdown
+            [placeholder]="'Wybierz'"
+            formControlName="tags"
+            [settings]="dropdownSettings"
+            [data]="tagsList"
+          >
+          </ng-multiselect-dropdown>
+          <button class="btn" type="submit" [disabled]="!tagsForm.valid || tagsProcessing" >Wyślij</button>
+        </fieldset>
+      </form>
+    </div>
+
     <div>
       <hr>
       <h3 class="center">Dodaj Swoje Zdjęcie</h3>
@@ -60,26 +77,79 @@
 </div>
 
 <div *ngIf="!isDesktop">
-  <h1 class="center">{{title}}</h1>
+  <div *ngIf="!beerDetailsViewOpen" style="height: 95vh !important;" class="overflow-auto">
+    <h1 class="center">{{title}}</h1>
 
-  <input type="text" class="form" placeholder="Szukaj" (input)="onSearchChange($event)">
+    <input type="text" class="form" placeholder="Szukaj" (input)="onSearchChange($event)" style="margin-bottom: 20px">
 
-  <table class="table center">
-    <tr>
-      <th>Nazwa</th>
-      <th>Browar</th>
-      <th>Styl</th>
-    </tr>
-    <tr *ngFor="let beer of beers">
-      <td><a routerLink="./{{beer.beerId}}">{{beer.name}}</a></td>
-      <td>{{beer.brewery}}</td>
-      <td>{{beer.style}}</td>
-    </tr>
-  </table>
-
-  <div style="width: 100%; display: inline-flex; justify-content: center;">
-    <button class="btn" *ngIf="pageNumber > 0" (click)="previousPage()">Poprzednia Strona</button>
-    <button class="btn" *ngIf="beers.length == pageSize" (click)="nextPage()">Następna Strona</button>
+    <div class="flex-column">
+      <div *ngFor="let beer of beers" (click)="onBeerChangeMobile(beer.beerId)" class="listed-beer-css row flex-grow-1">
+        <div class="flex-column" style="width: 35%;">
+          <img [src]="beer.image" height="150" width="100" alt="Brak Zdjęcia Piwa" style="margin-bottom: 50px">
+        </div>
+        <div class="flex-column" style="width: 65%;">
+          <h2>{{beer.name}}</h2>
+          <p>Browar: {{beer.brewery}}</p>
+          <p>Styl: {{beer.style}}</p>
+          <p *ngIf="beer.review != null">Ocena: {{beer.review}}/10</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button class="btn" *ngIf="beers.length == pageSize*(pageNumber+1)" (click)="LoadMore()">Załaduj Więcej</button>
+    </div>
   </div>
 
+  <div  *ngIf="beerDetailsViewOpen">
+    <mat-icon class="backbutton-css" (click)="HideBeerViewMobile()">backspace</mat-icon>
+    <h1 class="center">{{selectedBeer.name}}</h1>
+
+    <ul class="center">
+      <li>Browar: {{selectedBeer.brewery}}</li>
+      <li>Styl: {{selectedBeer.style}}</li>
+      <li>ABV: {{selectedBeer.abv}}</li>
+      <li>IBU: {{selectedBeer.ibu}}</li>
+    </ul>
+
+    <div class="ratingBox">
+      <hr>
+      <h3 class="center">Dodaj Swoją Ocenę</h3>
+      <form  [formGroup]="reviewForm" (ngSubmit)="onSubmitReview()">
+        <fieldset class="form-group">
+          <ngb-rating formControlName="stars" [(rate)]="rating" class="rating" ></ngb-rating>
+          <p class="text">{{rating}}/10</p>
+          <button class="btn" type="submit" [disabled]="!reviewForm.valid || reviewProcessing" >Wyślij</button>
+        </fieldset>
+      </form>
+    </div>
+
+    <div>
+      <hr>
+      <h3 class="center">Wybierz tagi</h3>
+      <form  [formGroup]="tagsForm" (ngSubmit)="onSubmitTags()">
+        <fieldset class="form-group center">
+          <ng-multiselect-dropdown
+            formControlName="tags"
+            [settings]="dropdownSettings"
+            [data]="tagsList"
+          >
+          </ng-multiselect-dropdown>
+          <button class="btn" type="submit" [disabled]="!tagsForm.valid || tagsProcessing" >Wyślij</button>
+        </fieldset>
+      </form>
+    </div>
+
+    <div>
+      <hr>
+      <h3 class="center">Dodaj Swoje Zdjęcie</h3>
+      <form  [formGroup]="photoForm" (ngSubmit)="onSubmitPhoto()">
+        <fieldset class="form-group center">
+          <input type="file" formControlName="file" class="form-control" accept=".jpg, .png, .jpeg, .bmp, .tif, .tiff|image/*" (change)="onFileChange($event)">
+          <button class="btn" type="submit" [disabled]="!photoForm.valid || photoProcessing" >Wyślij</button>
+        </fieldset>
+      </form>
+
+      <!--<button class="btn" routerLink="./camera" *ngIf="!isDesktop">Włącz aparat</button>-->
+    </div>
+  </div>
 </div>

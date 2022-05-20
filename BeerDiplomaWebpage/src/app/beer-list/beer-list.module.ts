@@ -10,6 +10,8 @@ import { CameraComponent } from '../camera/camera.component';
 import { WebcamModule } from 'ngx-webcam';
 import {BeerPhotoComponent} from "./beer-photo/beer-photo.component";
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import {MatIconModule} from '@angular/material/icon'
 
 @NgModule({
   declarations: [ BeerListComponent, BeerDetailsComponent, CameraComponent, BeerPhotoComponent ],
@@ -20,6 +22,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     NgbModule,
     WebcamModule,
     InfiniteScrollModule,
+    NgMultiSelectDropDownModule.forRoot(),
+    MatIconModule,
   ],
   providers: [ CookieService ],
   bootstrap: [ BeerListComponent ]

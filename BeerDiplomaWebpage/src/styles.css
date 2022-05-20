@@ -21,7 +21,7 @@ body {
     background: #161616;
 }
 
-p,h1,h2,h3 {
+p,h1,h2,h3,li {
   color: floralwhite;
 }
 
@@ -188,6 +188,38 @@ h1 {
     padding: 10px;
 }
 
+.listed-beer-css{
+  width: 85%;
+  border-color: chocolate;
+  border-width: thin;
+  border-style: solid;
+  border-right: none;
+  border-left: none;
+  border-bottom: none;
+  padding-left: 5%;
+  margin-left: 5%;
+  margin-bottom: 3px;
+}
+
+.statistics-beer-css{
+  width: 40%;
+  border-color: chocolate;
+  border-width: thin;
+  border-style: solid;
+  border-right: none;
+  border-left: none;
+  border-bottom: none;
+  padding-left: 5%;
+  margin-left: 30%;
+  margin-bottom: 3px;
+}
+
+.backbutton-css{
+  color: chocolate;
+  padding-left: 10%;
+  padding-top: 5%;
+}
+
 
 @media only screen and (max-device-width: 1000px){
 
@@ -222,6 +254,11 @@ h1 {
     }
 
     .menuContainer {
+    }
+
+    .statistics-beer-css {
+      width: 90%;
+      margin-left: 5%;
     }
 
     }

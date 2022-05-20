@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Observable, catchError,throwError } from 'rxjs';
-import { BeerReview } from "./beer";
+import {BeerReview, TagsReview} from "./beer";
 import {Byte} from "@angular/compiler/src/util";
 import {SafeHtml} from "@angular/platform-browser";
 
@@ -76,8 +76,20 @@ export class BeerListService {
     });
   }
 
-  getImage(url: any): Observable<Blob> {
+  public getImage(url: any): Observable<Blob> {
     return this.http.get(url, { responseType: 'blob' });
+  }
+
+  public getBeerTags(): Observable<HttpResponse<any>>{
+    return this.http.get(BeerListService.urlBeers + '/tags', {
+      observe: 'response',
+    });
+  }
+
+  public putBeerTags(tags: TagsReview): Observable<HttpResponse<any>>{
+    return this.http.put(BeerListService.urlReviews + '/' + tags.login + '/' + tags.beer_id + '/tags',tags.tags , {
+      observe: 'response',
+    });
   }
 
 }

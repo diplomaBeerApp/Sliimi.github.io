@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Beer, BeerFullInfo, BeerReview} from "./beer";
+import {Beer, BeerFullInfo, BeerReview, TagsReview} from "./beer";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
 import {BeerListService} from "./beer-list.service";
@@ -7,6 +7,9 @@ import {debounce} from "lodash";
 import {DeviceDetectorService} from "ngx-device-detector";
 import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
+import {IDropdownSettings} from "ng-multiselect-dropdown";
+import {newArray} from "@angular/compiler/src/util";
+
 
 @Component({
   selector: 'app-beer-list',
@@ -21,7 +24,7 @@ export class BeerListComponent implements OnInit {
   currentQuery: string = '';
   isDesktop:boolean = true;
   beerListProcessing = true;
-
+  beerDetailsViewOpen:boolean = false;
   selectedBeer: Beer = {
     beerId: 0,
     name: "",
@@ -69,6 +72,7 @@ export class BeerListComponent implements OnInit {
         this.getImageFromUrl(this.beers[_i].mainPhotoUrl, _i);
       }
       this.selectedBeer = this.beers[0];
+      this.mapTags(this.selectedBeer.tags);
       if (this.selectedBeer.review != null) {
         this.wasReviewedBefore = true;
         this.reviewForm.controls["stars"].setValue(this.selectedBeer.review);
@@ -88,6 +92,7 @@ export class BeerListComponent implements OnInit {
   onBeerChange(newId: number){
     var temp = this.beers.filter(el => el.beerId == newId);
     this.selectedBeer = temp[0];
+    this.mapTags(this.selectedBeer.tags);
     if (this.selectedBeer.review != null) {
       this.wasReviewedBefore = true;
       this.reviewForm.controls["stars"].setValue(this.selectedBeer.review);
@@ -96,6 +101,25 @@ export class BeerListComponent implements OnInit {
       this.wasReviewedBefore = false;
       this.reviewForm.controls["stars"].setValue(0);
     }
+  }
+
+  onBeerChangeMobile(newId: number){
+    this.beerDetailsViewOpen = true;
+    var temp = this.beers.filter(el => el.beerId == newId);
+    this.selectedBeer = temp[0];
+    this.mapTags(this.selectedBeer.tags);
+    if (this.selectedBeer.review != null) {
+      this.wasReviewedBefore = true;
+      this.reviewForm.controls["stars"].setValue(this.selectedBeer.review);
+    }
+    else {
+      this.wasReviewedBefore = false;
+      this.reviewForm.controls["stars"].setValue(0);
+    }
+  }
+
+  HideBeerViewMobile(){
+    this.beerDetailsViewOpen = false;
   }
 
   nextPage(){
@@ -196,8 +220,8 @@ export class BeerListComponent implements OnInit {
     this.beerListProcessing = true;
     this.pageNumber += 1;
     this.service.getBeersWithQuery(this.currentQuery, (this.pageNumber*this.pageSize+1), this.pageSize, this.userId).subscribe(data => {
-      var temp = <Array<Beer>>data.body.content;
-      for (let beer of temp) {
+      var tempLoad = <Array<Beer>>data.body.content;
+      for (let beer of tempLoad) {
         this.beers.push(beer);
       }
       for (let _i = this.pageSize*this.pageNumber; _i < this.pageSize*(this.pageNumber+1); _i++){
@@ -220,9 +244,165 @@ export class BeerListComponent implements OnInit {
 
   getImageFromUrl(url: string, index: number){
     this.service.getImage(url).subscribe(data => {
-      this.createImageFromBlob(data, index);
+      let newBlob = new Blob([data], {type: "image/jpeg"})
+      this.createImageFromBlob(newBlob, index);
     }, error => {
       console.log(error);
+    });
+  }
+
+  tagsForm = new FormGroup({
+    tags: new FormControl(''),
+  });
+  tagsProcessing: boolean = false;
+  tagsToSend: TagsReview = {
+    login: '',
+    tags: new Array<any>(),
+    beer_id: '',
+  }
+
+  tagsList = [
+    { item_id: 1, item_text: 'Pszeniczne' },
+    { item_id: 2, item_text: 'Gorzkie' },
+    { item_id: 3, item_text: 'Jasne' },
+    { item_id: 4, item_text: 'Ciemne' },
+    { item_id: 5, item_text: 'Chmielowe' },
+    { item_id: 6, item_text: 'Cytrusowe' },
+    { item_id: 7, item_text: 'Słodowe' },
+    { item_id: 8, item_text: 'Owocowe' },
+    { item_id: 9, item_text: 'Kwaśne' },
+    { item_id: 10, item_text: 'Karmelowe' },
+    { item_id: 11, item_text: 'Słodkie' },
+    { item_id: 12, item_text: 'Czekoladowe' },
+    { item_id: 13, item_text: 'Kawowe' },
+    { item_id: 14, item_text: 'Mleczne' },
+    { item_id: 15, item_text: 'Ziołowe' },
+    { item_id: 16, item_text: 'Bananowe' },
+    { item_id: 17, item_text: 'Miodowe' }
+  ];
+  selectedTags = new Array<any>();
+  dropdownSettings:IDropdownSettings = {
+    singleSelection: false,
+    idField: 'item_id',
+    textField: 'item_text',
+    itemsShowLimit: 8,
+    allowSearchFilter: true,
+    searchPlaceholderText: 'Szukaj',
+    selectAllText: 'Zaznacz Wszystkie',
+    unSelectAllText: 'Odznacz Wszystkie'
+  };
+
+  mapTagFromBackend(tag: string): string{
+    switch (tag) {
+      case 'PSZENICZNE':
+        return 'Pszeniczne';
+      case 'GORZKIE':
+        return 'Gorzkie';
+      case 'JASNE':
+        return'Jasne';
+      case 'CIEMNE':
+        return 'Ciemne';
+      case 'CHMIELOWE':
+        return 'Chmielowe';
+      case 'CYTRUSOWE':
+        return 'Cytrusowe';
+      case 'SLODOWE':
+        return 'Słodowe';
+      case 'OWOCOWE':
+        return 'Owocowe';
+      case 'KWASNE':
+        return 'Kwaśne';
+      case 'KARMELOWE':
+        return 'Karmelowe';
+      case 'SLODKIE':
+        return 'Słodkie';
+      case 'CZEKOLADOWE':
+        return 'Czekoladowe';
+      case 'KAWOWE':
+        return 'Kawowe';
+      case 'MLECZNE':
+        return 'Mleczne';
+      case 'ZIOLOWE':
+        return 'Ziołowe';
+      case 'BANANOWE':
+        return 'Bananowe';
+      case 'MIODOWE':
+        return 'Miodowe';
+      default:
+        console.log("problem z mapowaniem tagów");
+        return '';
+    }
+  }
+
+  unmapTagForBackend(tag: string): string{
+    switch (tag) {
+      case 'Pszeniczne':
+        return 'PSZENICZNE';
+      case 'Gorzkie':
+        return 'GORZKIE';
+      case 'Jasne':
+        return'JASNE';
+      case 'Ciemne':
+        return 'CIEMNE';
+      case 'Chmielowe':
+        return 'CHMIELOWE';
+      case 'Cytrusowe':
+        return 'CYTRUSOWE';
+      case 'Słodowe':
+        return 'SLODOWE';
+      case 'Owocowe':
+        return 'OWOCOWE';
+      case 'Kwaśne':
+        return 'KWASNE';
+      case 'Karmelowe':
+        return 'KARMELOWE';
+      case 'Słodkie':
+        return 'SLODKIE';
+      case 'Czekoladowe':
+        return 'CZEKOLADOWE';
+      case 'Kawowe':
+        return 'KAWOWE';
+      case 'Mleczne':
+        return 'MLECZNE';
+      case 'Ziołowe':
+        return 'ZIOLOWE';
+      case 'Bananowe':
+        return 'BANANOWE';
+      case 'Miodowe':
+        return 'MIODOWE';
+      default:
+        console.log("problem z mapowaniem tagów");
+        return '';
+    }
+  }
+
+  mapTags(tags: Array<string>){
+    var retMap: Array<{ item_id: number, item_text: string }> = new Array<{ item_id: number, item_text: string }>();
+    for (let tag of tags){
+      var temp = this.tagsList.filter(el => el.item_text == this.mapTagFromBackend(tag));
+      retMap.push(this.tagsList[this.tagsList.indexOf(temp[0])]);
+    }
+    this.tagsForm.controls["tags"].setValue(retMap);
+  }
+
+  unmapTags(tagsToProcess: Array<{ item_id: number, item_text: string }>): Array<string>{
+    var tempUnmap = new Array<string>();
+    for (let tag of tagsToProcess){
+      tempUnmap.push(this.unmapTagForBackend(tag.item_text));
+    }
+    return tempUnmap;
+  }
+
+  onSubmitTags() : void {
+    this.tagsProcessing = true;
+    this.tagsToSend.login = this.userId;
+    this.tagsToSend.beer_id = this.selectedBeer.beerId.toString();
+    this.tagsToSend.tags = this.unmapTags(this.tagsForm.controls["tags"].value);
+    console.log(this.tagsToSend);
+    this.service.putBeerTags(this.tagsToSend).subscribe(data => {
+      this.tagsProcessing = false;
+      var temp = this.beers.filter(el => el.beerId == this.selectedBeer.beerId);
+      this.beers[this.beers.indexOf(temp[0])].tags = this.tagsToSend.tags;
     });
   }
 }

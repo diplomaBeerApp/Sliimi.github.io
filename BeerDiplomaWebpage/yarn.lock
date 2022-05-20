@@ -176,7 +176,7 @@
     "symbol-observable" "4.0.0"
     "uuid" "8.3.2"
 
-"@angular/common@^13.0.0", "@angular/common@^13.0.0 || ^14.0.0-0", "@angular/common@^13.1.0", "@angular/common@>=7.0.0 <=13.0.0 || ^13.0.0", "@angular/common@~13.3.3", "@angular/common@13.3.3":
+"@angular/common@^13.0.0", "@angular/common@^13.0.0 || ^14.0.0-0", "@angular/common@^13.1.0", "@angular/common@>=2.0.0", "@angular/common@>=7.0.0 <=13.0.0 || ^13.0.0", "@angular/common@~13.3.3", "@angular/common@13.3.3":
   "integrity" "sha512-W5rZyuilGAA+tHoTbvHHu11efUBssiiX9BKg2rQAwbdnG+hZfNs0ze28Y+2bwjTDkbLsXsQwm30gs2uie7aMyA=="
   "resolved" "https://registry.npmjs.org/@angular/common/-/common-13.3.3.tgz"
   "version" "13.3.3"
@@ -206,7 +206,7 @@
   dependencies:
     "tslib" "^2.3.0"
 
-"@angular/core@^13.0.0", "@angular/core@^13.0.0 || ^14.0.0-0", "@angular/core@^13.1.0", "@angular/core@>=7.0.0 <=13.0.0 || ^13.0.0", "@angular/core@~13.3.3", "@angular/core@13.3.3":
+"@angular/core@^13.0.0", "@angular/core@^13.0.0 || ^14.0.0-0", "@angular/core@^13.1.0", "@angular/core@>=2.0.0", "@angular/core@>=7.0.0 <=13.0.0 || ^13.0.0", "@angular/core@~13.3.3", "@angular/core@13.3.3":
   "integrity" "sha512-zVsAuR1qT2QEUXDk8ANs+pCnxH7ckKAD+rJXoxI1Br94Ey1o7lNXu/GPJtTqxDbsRd7sGqMMQRti36t2CA5QhA=="
   "resolved" "https://registry.npmjs.org/@angular/core/-/core-13.3.3.tgz"
   "version" "13.3.3"
@@ -5424,6 +5424,13 @@
   "integrity" "sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw=="
   "resolved" "https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz"
   "version" "2.6.2"
+
+"ng-multiselect-dropdown@^0.3.8":
+  "integrity" "sha512-b6WohT+ouGQfBqo+OpYPClJI25Qmj/nNWcyGUIMh2JCAHEpWEQRUVzHJB7pPVW+n5a/P26I/sLyOQekxfkW9aQ=="
+  "resolved" "https://registry.npmjs.org/ng-multiselect-dropdown/-/ng-multiselect-dropdown-0.3.8.tgz"
+  "version" "0.3.8"
+  dependencies:
+    "tslib" "^1.9.0"
 
 "ngx-cookie-service@^13.2.0":
   "integrity" "sha512-WxuLrZROWf59DfPPstPsrS18nxtPvT+uJ4AEjFs57NqtTfYdRQXhVJ02fZ4WP4VPElI8o6qndNL7gi9tkEdg4Q=="
