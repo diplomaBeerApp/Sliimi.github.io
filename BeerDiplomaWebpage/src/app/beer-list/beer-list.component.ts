@@ -25,6 +25,9 @@ export class BeerListComponent implements OnInit {
   isDesktop:boolean = true;
   beerListProcessing = true;
   beerDetailsViewOpen:boolean = false;
+  reviewConfirmation: boolean = false;
+  tagsConfirmation: boolean = false;
+  imageConfirmation: boolean = false;
   selectedBeer: Beer = {
     beerId: 0,
     name: "",
@@ -61,6 +64,9 @@ export class BeerListComponent implements OnInit {
     private sanitizer: DomSanitizer
   ) {
     this.onSearchChange = debounce(this.onSearchChange, 1000)
+    this.hideImageConfirmation = debounce(this.hideImageConfirmation, 3000)
+    this.hideTagsConfirmation = debounce(this.hideTagsConfirmation, 3000)
+    this.hideReviewConfirmation = debounce(this.hideReviewConfirmation, 3000)
   }
 
   ngOnInit(): void {
@@ -101,6 +107,9 @@ export class BeerListComponent implements OnInit {
       this.wasReviewedBefore = false;
       this.reviewForm.controls["stars"].setValue(0);
     }
+    this.reviewConfirmation = false;
+    this.imageConfirmation = false;
+    this.tagsConfirmation = false;
   }
 
   onBeerChangeMobile(newId: number){
@@ -116,6 +125,9 @@ export class BeerListComponent implements OnInit {
       this.wasReviewedBefore = false;
       this.reviewForm.controls["stars"].setValue(0);
     }
+    this.reviewConfirmation = false;
+    this.imageConfirmation = false;
+    this.tagsConfirmation = false;
   }
 
   HideBeerViewMobile(){
@@ -165,6 +177,8 @@ export class BeerListComponent implements OnInit {
         var temp = this.beers.filter(el => el.beerId == this.selectedBeer.beerId);
         this.beers[this.beers.indexOf(temp[0])].review = parseInt(this.reviewForm.controls["stars"].value);
         if (response.status == 204) {
+          this.reviewConfirmation = true;
+          this.hideReviewConfirmation()
           //sessionStorage.setItem('userRegister','Dodanie recenzji powiodło się');
           //this.router.navigateByUrl('/');
         }
@@ -183,6 +197,8 @@ export class BeerListComponent implements OnInit {
         this.beers[this.beers.indexOf(temp[0])].review = parseInt(this.reviewForm.controls["stars"].value);
         this.reviewForm.controls["stars"].setValue(this.selectedBeer.review);
         if (response.status == 204) {
+          this.reviewConfirmation = true;
+          this.hideReviewConfirmation()
           //sessionStorage.setItem('userRegister','Dodanie recenzji powiodło się');
           //this.router.navigateByUrl('/');
         }
@@ -211,6 +227,8 @@ export class BeerListComponent implements OnInit {
       let url = data.body.content;
       this.service.uploadPhoto(url, this.fileToUpload).subscribe(response => {
         this.photoProcessing = false;
+        this.imageConfirmation = true;
+        this.hideImageConfirmation()
         console.log(response)
       });
     });
@@ -278,56 +296,61 @@ export class BeerListComponent implements OnInit {
     { item_id: 14, item_text: 'Mleczne' },
     { item_id: 15, item_text: 'Ziołowe' },
     { item_id: 16, item_text: 'Bananowe' },
-    { item_id: 17, item_text: 'Miodowe' }
+    { item_id: 17, item_text: 'Miodowe' },
+    { item_id: 17, item_text: 'Kwiatowe' }
   ];
   selectedTags = new Array<any>();
   dropdownSettings:IDropdownSettings = {
     singleSelection: false,
     idField: 'item_id',
     textField: 'item_text',
-    itemsShowLimit: 8,
+    itemsShowLimit: 5,
     allowSearchFilter: true,
     searchPlaceholderText: 'Szukaj',
     selectAllText: 'Zaznacz Wszystkie',
-    unSelectAllText: 'Odznacz Wszystkie'
+    unSelectAllText: 'Odznacz Wszystkie',
+    enableCheckAll: false,
+    limitSelection: 5
   };
 
   mapTagFromBackend(tag: string): string{
     switch (tag) {
-      case 'PSZENICZNE':
+      case 'WHEAT':
         return 'Pszeniczne';
-      case 'GORZKIE':
+      case 'BITTER':
         return 'Gorzkie';
-      case 'JASNE':
+      case 'LIGHT':
         return'Jasne';
-      case 'CIEMNE':
+      case 'DARK':
         return 'Ciemne';
-      case 'CHMIELOWE':
+      case 'HOPPY':
         return 'Chmielowe';
-      case 'CYTRUSOWE':
+      case 'CITRUS':
         return 'Cytrusowe';
-      case 'SLODOWE':
+      case 'MALT':
         return 'Słodowe';
-      case 'OWOCOWE':
+      case 'FRUITY':
         return 'Owocowe';
-      case 'KWASNE':
+      case 'SOUR':
         return 'Kwaśne';
-      case 'KARMELOWE':
+      case 'CARMEL':
         return 'Karmelowe';
-      case 'SLODKIE':
+      case 'SWEET':
         return 'Słodkie';
-      case 'CZEKOLADOWE':
+      case 'CHOCOLATE':
         return 'Czekoladowe';
-      case 'KAWOWE':
+      case 'COFFEE':
         return 'Kawowe';
-      case 'MLECZNE':
+      case 'MILK':
         return 'Mleczne';
-      case 'ZIOLOWE':
+      case 'HERBAL':
         return 'Ziołowe';
-      case 'BANANOWE':
+      case 'BANANA':
         return 'Bananowe';
-      case 'MIODOWE':
+      case 'HONEY':
         return 'Miodowe';
+      case 'FLOWER':
+        return 'Kwiatowe';
       default:
         console.log("problem z mapowaniem tagów");
         return '';
@@ -337,39 +360,41 @@ export class BeerListComponent implements OnInit {
   unmapTagForBackend(tag: string): string{
     switch (tag) {
       case 'Pszeniczne':
-        return 'PSZENICZNE';
+        return 'WHEAT';
       case 'Gorzkie':
-        return 'GORZKIE';
+        return 'BITTER';
       case 'Jasne':
-        return'JASNE';
+        return'LIGHT';
       case 'Ciemne':
-        return 'CIEMNE';
+        return 'DARK';
       case 'Chmielowe':
-        return 'CHMIELOWE';
+        return 'HOPPY';
       case 'Cytrusowe':
-        return 'CYTRUSOWE';
+        return 'CITRUS';
       case 'Słodowe':
-        return 'SLODOWE';
+        return 'MALT';
       case 'Owocowe':
-        return 'OWOCOWE';
+        return 'FRUITY';
       case 'Kwaśne':
-        return 'KWASNE';
+        return 'SOUR';
       case 'Karmelowe':
-        return 'KARMELOWE';
+        return 'CARMEL';
       case 'Słodkie':
-        return 'SLODKIE';
+        return 'SWEET';
       case 'Czekoladowe':
-        return 'CZEKOLADOWE';
+        return 'CHOCOLATE';
       case 'Kawowe':
-        return 'KAWOWE';
+        return 'COFFEE';
       case 'Mleczne':
-        return 'MLECZNE';
+        return 'MILK';
       case 'Ziołowe':
-        return 'ZIOLOWE';
+        return 'HERBAL';
       case 'Bananowe':
-        return 'BANANOWE';
+        return 'BANANA';
       case 'Miodowe':
-        return 'MIODOWE';
+        return 'HONEY';
+      case 'Kwiatowe':
+        return 'FLOWER';
       default:
         console.log("problem z mapowaniem tagów");
         return '';
@@ -403,6 +428,20 @@ export class BeerListComponent implements OnInit {
       this.tagsProcessing = false;
       var temp = this.beers.filter(el => el.beerId == this.selectedBeer.beerId);
       this.beers[this.beers.indexOf(temp[0])].tags = this.tagsToSend.tags;
+      this.tagsConfirmation = true;
+      this.hideTagsConfirmation()
     });
+  }
+
+  hideReviewConfirmation(): void{
+    this.reviewConfirmation = false;
+  }
+
+  hideTagsConfirmation(): void{
+    this.tagsConfirmation = false;
+  }
+
+  hideImageConfirmation(): void{
+    this.imageConfirmation = false;
   }
 }

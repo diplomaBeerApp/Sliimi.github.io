@@ -18,7 +18,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class AuthComponent implements OnInit {
   authType: String = '';
   title: String = '';
-  value: String ='begin';
+  value: String ='Wyślij';
   errors = new Array<String>();
   processing: Boolean = false;
   registerMessage: String = "Proszę czekać trwa przetwarzanie danych";
@@ -57,8 +57,12 @@ export class AuthComponent implements OnInit {
       this.authType = data[data.length - 1].path;
       this.title = (this.authType == 'login') ? 'Logowanie' : 'Rejestracja';
       if(this.authType == 'register') {
+        this.value = 'Zarejestruj';
         this.authForm.controls["email"].addValidators(Validators.required);
         this.authForm.controls["password2"].addValidators(Validators.required);
+      }
+      else{
+        this.value = 'Zaloguj';
       }
     });
 
