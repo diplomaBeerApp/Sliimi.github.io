@@ -1,36 +1,37 @@
 <div *ngIf="isDesktop" class="row flex-grow-1 overflow-hidden">
-  <div style="width: 29%; height: 90vh !important;" class="overflow-auto">
-    <h1 class="center">{{title}}</h1>
+  <div style="width: 35%;">
 
     <input type="text" class="form" placeholder="Szukaj" (input)="onSearchChange($event)" style="margin-bottom: 20px">
+    <div style="height: 80vh !important;" class="overflow-auto">
 
     <div class="flex-column">
       <div *ngFor="let beer of beers" (click)="onBeerChange(beer.beerId)" class="listed-beer-css row flex-grow-1">
-        <div class="flex-column" style="width: 35%;">
-          <img [src]="beer.image" height="150" width="100" alt="Brak Zdjęcia Piwa" style="margin-bottom: 50px">
+        <div class="flex-column" style="width: 30%;">
+          <img [src]="beer.image" height="150" width="100" alt="Ładowanie zdjęcia piwa" style="margin-bottom: 50px; margin-top: 5px">
         </div>
-        <div class="flex-column" style="width: 65%;">
+        <div class="flex-column" style="width: 70%;">
           <h2>{{beer.name}}</h2>
           <p>Browar: {{beer.brewery}}</p>
           <p>Styl: {{beer.style}}</p>
-          <p *ngIf="beer.review != null">Ocena: {{beer.review}}/10</p>
+          <p *ngIf="beer.review != null">Twoja Ocena: {{beer.review}}/10</p>
         </div>
       </div>
     </div>
     <div>
       <button class="btn" *ngIf="beers.length == pageSize*(pageNumber+1)" (click)="LoadMore()">Załaduj Więcej</button>
     </div>
+    </div>
   </div>
 
-  <div style="width: 65%" class="col mh-100 overflow-auto">
+  <div style="width: 60%; height: 85vh !important;" class="col mh-100 overflow-auto">
     <h1 class="center">{{selectedBeer.name}}</h1>
 
-    <ul class="center">
-      <li>Browar: {{selectedBeer.brewery}}</li>
-      <li>Styl: {{selectedBeer.style}}</li>
-      <li>ABV: {{selectedBeer.abv}}</li>
-      <li>IBU: {{selectedBeer.ibu}}</li>
-    </ul>
+    <div class="center">
+      <p>Browar: {{selectedBeer.brewery}}</p>
+      <p>Styl: {{selectedBeer.style}}</p>
+      <p>ABV: {{selectedBeer.abv}}</p>
+      <p>IBU: {{selectedBeer.ibu}}</p>
+    </div>
 
     <div class="ratingBox">
       <hr>
@@ -42,6 +43,7 @@
           <button class="btn" type="submit" [disabled]="!reviewForm.valid || reviewProcessing" >Wyślij</button>
         </fieldset>
       </form>
+      <h4 class="success" *ngIf="reviewConfirmation">Ocena Została Wysłana</h4>
     </div>
 
     <div>
@@ -59,6 +61,7 @@
           <button class="btn" type="submit" [disabled]="!tagsForm.valid || tagsProcessing" >Wyślij</button>
         </fieldset>
       </form>
+      <h4 class="success" *ngIf="tagsConfirmation">Tagi Zostały Wysłane</h4>
     </div>
 
     <div>
@@ -70,28 +73,26 @@
           <button class="btn" type="submit" [disabled]="!photoForm.valid || photoProcessing" >Wyślij</button>
         </fieldset>
       </form>
-
+      <h4 class="success" *ngIf="imageConfirmation">Zdjęcie Zostało Wysłane</h4>
       <!--<button class="btn" routerLink="./camera" *ngIf="!isDesktop">Włącz aparat</button>-->
     </div>
   </div>
 </div>
 
-<div *ngIf="!isDesktop">
-  <div *ngIf="!beerDetailsViewOpen" style="height: 95vh !important;" class="overflow-auto">
-    <h1 class="center">{{title}}</h1>
-
-    <input type="text" class="form" placeholder="Szukaj" (input)="onSearchChange($event)" style="margin-bottom: 20px">
+<div *ngIf="!isDesktop" class="row flex-grow-1 overflow-hidden">
+  <input type="text" class="form" placeholder="Szukaj" (input)="onSearchChange($event)" style="margin-bottom: 20px">
+  <div *ngIf="!beerDetailsViewOpen" style="height: 85vh !important;" class="overflow-auto">
 
     <div class="flex-column">
       <div *ngFor="let beer of beers" (click)="onBeerChangeMobile(beer.beerId)" class="listed-beer-css row flex-grow-1">
-        <div class="flex-column" style="width: 35%;">
-          <img [src]="beer.image" height="150" width="100" alt="Brak Zdjęcia Piwa" style="margin-bottom: 50px">
+        <div class="flex-column" style="width: 30%;">
+          <img [src]="beer.image" height="150" width="100" alt="Ładowanie zdjęcia piwa" style="margin-bottom: 50px; margin-top: 5px">
         </div>
-        <div class="flex-column" style="width: 65%;">
+        <div class="flex-column" style="width: 70;">
           <h2>{{beer.name}}</h2>
           <p>Browar: {{beer.brewery}}</p>
           <p>Styl: {{beer.style}}</p>
-          <p *ngIf="beer.review != null">Ocena: {{beer.review}}/10</p>
+          <p *ngIf="beer.review != null">Twoja Ocena: {{beer.review}}/10</p>
         </div>
       </div>
     </div>
@@ -100,16 +101,16 @@
     </div>
   </div>
 
-  <div  *ngIf="beerDetailsViewOpen">
-    <mat-icon class="backbutton-css" (click)="HideBeerViewMobile()">backspace</mat-icon>
+  <div  *ngIf="beerDetailsViewOpen" class="col vh-100 overflow-auto" style="height: 95vh !important;">
+    <mat-icon class="backbutton-css" (click)="HideBeerViewMobile()">arrow_back</mat-icon>
     <h1 class="center">{{selectedBeer.name}}</h1>
 
-    <ul class="center">
-      <li>Browar: {{selectedBeer.brewery}}</li>
-      <li>Styl: {{selectedBeer.style}}</li>
-      <li>ABV: {{selectedBeer.abv}}</li>
-      <li>IBU: {{selectedBeer.ibu}}</li>
-    </ul>
+    <div class="center">
+      <p>Browar: {{selectedBeer.brewery}}</p>
+      <p>Styl: {{selectedBeer.style}}</p>
+      <p>ABV: {{selectedBeer.abv}}</p>
+      <p>IBU: {{selectedBeer.ibu}}</p>
+    </div>
 
     <div class="ratingBox">
       <hr>
@@ -121,6 +122,7 @@
           <button class="btn" type="submit" [disabled]="!reviewForm.valid || reviewProcessing" >Wyślij</button>
         </fieldset>
       </form>
+      <h4 class="success" *ngIf="reviewConfirmation">Ocena Została Wysłana</h4>
     </div>
 
     <div>
@@ -137,6 +139,7 @@
           <button class="btn" type="submit" [disabled]="!tagsForm.valid || tagsProcessing" >Wyślij</button>
         </fieldset>
       </form>
+      <h4 class="success" *ngIf="tagsConfirmation">Tagi Zostały Wysłane</h4>
     </div>
 
     <div>
@@ -148,7 +151,7 @@
           <button class="btn" type="submit" [disabled]="!photoForm.valid || photoProcessing" >Wyślij</button>
         </fieldset>
       </form>
-
+      <h4 class="success" *ngIf="imageConfirmation">Zdjęcie Zostało Wysłane</h4>
       <!--<button class="btn" routerLink="./camera" *ngIf="!isDesktop">Włącz aparat</button>-->
     </div>
   </div>

@@ -1,6 +1,6 @@
 <div class="container-fluid d-flex flex-column vh-100 overflow-hidden">
   <header></header>
-  <mat-progress-spinner [mode]="'indeterminate'" *ngIf="loading$ | async"></mat-progress-spinner>
+  <mat-progress-spinner style="stroke: chocolate" [mode]="'indeterminate'" *ngIf="loading$ | async"></mat-progress-spinner>
   <router-outlet class="flex-column"></router-outlet>
 </div>
 
