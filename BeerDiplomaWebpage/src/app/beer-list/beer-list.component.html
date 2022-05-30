@@ -80,27 +80,28 @@
 </div>
 
 <div *ngIf="!isDesktop" class="row flex-grow-1 overflow-hidden">
+  <div *ngIf="!beerDetailsViewOpen">
   <input type="text" class="form" placeholder="Szukaj" (input)="onSearchChange($event)" style="margin-bottom: 20px">
-  <div *ngIf="!beerDetailsViewOpen" style="height: 85vh !important;" class="overflow-auto">
+    <div style="height: 85vh !important;" class="overflow-auto">
 
-    <div class="flex-column">
-      <div *ngFor="let beer of beers" (click)="onBeerChangeMobile(beer.beerId)" class="listed-beer-css row flex-grow-1">
-        <div class="flex-column" style="width: 30%;">
-          <img [src]="beer.image" height="150" width="100" alt="Ładowanie zdjęcia piwa" style="margin-bottom: 50px; margin-top: 5px">
-        </div>
-        <div class="flex-column" style="width: 70;">
-          <h2>{{beer.name}}</h2>
-          <p>Browar: {{beer.brewery}}</p>
-          <p>Styl: {{beer.style}}</p>
-          <p *ngIf="beer.review != null">Twoja Ocena: {{beer.review}}/10</p>
+      <div class="flex-column">
+        <div *ngFor="let beer of beers" (click)="onBeerChangeMobile(beer.beerId)" class="listed-beer-css row flex-grow-1">
+          <div class="flex-column" style="width: 30%;">
+            <img [src]="beer.image" height="150" width="100" alt="Ładowanie zdjęcia piwa" style="margin-bottom: 50px; margin-top: 5px">
+          </div>
+          <div class="flex-column" style="width: 70%;">
+            <h2>{{beer.name}}</h2>
+            <p>Browar: {{beer.brewery}}</p>
+            <p>Styl: {{beer.style}}</p>
+            <p *ngIf="beer.review != null">Twoja Ocena: {{beer.review}}/10</p>
+          </div>
         </div>
       </div>
-    </div>
-    <div>
-      <button class="btn" *ngIf="beers.length == pageSize*(pageNumber+1)" (click)="LoadMore()">Załaduj Więcej</button>
+      <div>
+        <button class="btn" *ngIf="beers.length == pageSize*(pageNumber+1)" (click)="LoadMore()">Załaduj Więcej</button>
+      </div>
     </div>
   </div>
-
   <div  *ngIf="beerDetailsViewOpen" class="col vh-100 overflow-auto" style="height: 95vh !important;">
     <mat-icon class="backbutton-css" (click)="HideBeerViewMobile()">arrow_back</mat-icon>
     <h1 class="center">{{selectedBeer.name}}</h1>

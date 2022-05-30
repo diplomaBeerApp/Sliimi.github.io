@@ -1,4 +1,4 @@
-$base-color: chocolate;
+$base-color: chocolate !important;
 $disable-background-color: #eceeef;
 .multiselect-dropdown {
   position: relative;
@@ -59,7 +59,7 @@ $disable-background-color: #eceeef;
 }
 
 .dropdown-list {
-  background-color: #464646;
+  background-color: #464646 !important;
   position: absolute;
   padding-top: 6px;
   width: 100%;
@@ -122,7 +122,7 @@ $disable-background-color: #eceeef;
   user-select: none;
   cursor: pointer;
   margin: 0px;
-  color: #000;
+  color: white !important;
 }
 
 .multiselect-item-checkbox input[type='checkbox'] + div:before {
