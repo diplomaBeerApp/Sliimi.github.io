@@ -3,6 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import {HomeService} from "./home.service";
 import {Statistics} from "./statistics";
 import {Beer} from "../beer-list/beer";
+import {DeviceDetectorService} from "ngx-device-detector";
 
 @Component({
   selector: 'app-home',
@@ -20,10 +21,12 @@ export class HomeComponent implements OnInit {
     numberOfPhotos: 0,
     lastThreeReviews: new Array<Beer>(),
   };
+  isDesktop: boolean = true;
 
   constructor(
     private service: HomeService,
-    private cookieService:CookieService
+    private cookieService:CookieService,
+    private deviceService:DeviceDetectorService,
     ) {}
 
   ngOnInit(): void {

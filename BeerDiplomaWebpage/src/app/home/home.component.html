@@ -1,26 +1,29 @@
 <div class="row flex-grow-1 overflow-hidden">
   <h1 class="center">Strona Główna</h1>
   <div style="" class="center overflow-auto mh-100">
-
-
-        <div *ngIf="register || login"><p class="success">{{message}}</p></div>
-        <div *ngIf="login" >
-          <p>Liczba Wystawionych Ocen: {{statistics.numberOfReviews}}</p>
-          <p>Liczba Wysłanych Zdjęć: {{statistics.numberOfPhotos}}</p>
-          <div class="center">
-            <div *ngFor="let beer of statistics.lastThreeReviews" class="statistics-beer-css row flex-grow-1">
-              <div class="flex-column" style="width: 30%;">
-                <img [src]="beer.image" height="150" width="100" alt="Ładowanie zdjęcia piwa" style="margin-bottom: 50px; margin-top: 5px">
-              </div>
-              <div class="flex-column" style="width: 70%;">
-                <h2>{{beer.name}}</h2>
-                <p>Browar: {{beer.brewery}}</p>
-                <p>Styl: {{beer.style}}</p>
-                <p>Twoja Ocena: {{beer.review}}/10</p>
-              </div>
-            </div>
+    <div *ngIf="login" class="row main-page-css">
+      <div class="flex-column" style="width: 50%;">
+        <p>Liczba Wystawionych Ocen:</p>
+        <span class="btn hover-off">{{statistics.numberOfReviews}}</span>
+      </div>
+      <div class="flex-column" style="width: 50%;">
+        <p>Liczba Wysłanych Zdjęć:</p>
+        <span class="btn hover-off">{{statistics.numberOfPhotos}}</span>
+      </div>
+      <div class="center" style="padding-top: 50px">
+        <div *ngFor="let beer of statistics.lastThreeReviews" class="statistics-beer-css row flex-grow-1">
+          <div class="flex-column" style="width: 30%;">
+            <img [src]="beer.image" height="150" width="100" alt="Ładowanie zdjęcia piwa" style="margin-bottom: 20px; margin-top: 5px">
+          </div>
+          <div class="flex-column" style="width: 70%;">
+            <h2>{{beer.name}}</h2>
+            <p>Browar: {{beer.brewery}}</p>
+            <p>Styl: {{beer.style}}</p>
+            <p>Twoja Ocena: {{beer.review}}/10</p>
           </div>
         </div>
+      </div>
+  <div>
     <div class="testpiwo">
       <!--<camera></camera> -->
     </div>

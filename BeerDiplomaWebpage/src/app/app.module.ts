@@ -15,7 +15,8 @@ import {NgbPaginationModule, NgbAlertModule, NgbModule} from '@ng-bootstrap/ng-b
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {NetworkInterceptor} from "./network.interceptor";
-import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import { AboutComponent } from './about/about.component';
 
 
 
@@ -25,6 +26,7 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
     HomeComponent,
     HeaderComponent,
     ReviewComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +38,7 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
     MatIconModule,
     NgbModule,
     MatProgressSpinnerModule,
+    HttpClientModule,
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},

@@ -112,7 +112,6 @@ h1 {
     display: block;
     background-color:chocolate;
     color:white;
-
 }
 
 .btn:disabled {
@@ -123,6 +122,10 @@ h1 {
 .btn:hover {
     background-color:orange;
     color:white;
+}
+
+.hover-off:hover {
+  background-color:chocolate;
 }
 
 .navMobile {
@@ -204,7 +207,6 @@ h1 {
 }
 
 .statistics-beer-css{
-  width: 40%;
   border-color: chocolate;
   border-width: thin;
   border-style: solid;
@@ -212,7 +214,6 @@ h1 {
   border-left: none;
   border-bottom: none;
   padding-left: 5%;
-  margin-left: 30%;
   margin-bottom: 3px;
 }
 
@@ -235,6 +236,27 @@ input, .form-control[type="file"] {
   background-color: #464646;
   color: white;
   border-color: #adadad;
+}
+
+.main-page-css{
+  width: 40%;
+  margin-left: 30%;
+}
+
+::-webkit-scrollbar-track {
+  background: #333333;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #606060;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a04b14;
+}
+
+::-webkit-scrollbar {
+  width: 15px;
 }
 
 
@@ -274,9 +296,14 @@ input, .form-control[type="file"] {
     .menuContainer {
     }
 
-    .statistics-beer-css {
-      width: 90%;
-      margin-left: 5%;
+    .statistics-beer-css, .listed-beer-css{
+      width: 96%;
+      margin-left: 2%;
     }
+
+  .main-page-css{
+    width: 100%;
+    margin-left: 0;
+  }
 
     }
