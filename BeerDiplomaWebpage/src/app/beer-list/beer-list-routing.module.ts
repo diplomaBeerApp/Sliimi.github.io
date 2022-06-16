@@ -3,12 +3,14 @@ import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 import { BeerListComponent } from './beer-list.component';
 import {BeerDetailsComponent} from "./beer-details/beer-details.component";
 import {BeerPhotoComponent} from "./beer-photo/beer-photo.component";
+import {HomeComponent} from "../home/home.component";
 
 const routes: Routes = [
   {
     path: 'beer-list',
     component: BeerListComponent
   },
+
   /*
   {
     path: 'beer-list/:id',

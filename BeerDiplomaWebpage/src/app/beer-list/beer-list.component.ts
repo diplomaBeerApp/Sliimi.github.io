@@ -72,8 +72,9 @@ export class BeerListComponent implements OnInit {
   ngOnInit(): void {
     this.userId = this.cookieService.get("user");
     this.isDesktop = this.deviceService.isDesktop();
-    this.service.getBeersWithQuery(this.currentQuery, (this.pageNumber*this.pageSize+1), this.pageSize, this.userId).subscribe(data => {
+    this.service.getBeersWithQuery(this.currentQuery, (this.pageNumber*this.pageSize), this.pageSize, this.userId).subscribe(data => {
       this.beers = data.body.content;
+      console.log(data);
       for (let _i = 0; _i < this.pageSize; _i++){
         this.getImageFromUrl(this.beers[_i].mainPhotoUrl, _i);
       }
@@ -89,8 +90,12 @@ export class BeerListComponent implements OnInit {
 
   onSearchChange(event: any){
     this.pageNumber = 0;
-    this.service.getBeersWithQuery(event.target.value.toString(), (this.pageNumber*this.pageSize+1), this.pageSize, this.userId).subscribe(data => {
+    this.service.getBeersWithQuery(event.target.value.toString(), (this.pageNumber*this.pageSize), this.pageSize, this.userId).subscribe(data => {
       this.beers = data.body.content;
+      for (let _i = 0; _i < this.pageSize; _i++){
+        this.getImageFromUrl(this.beers[_i].mainPhotoUrl, _i);
+      }
+      this.selectedBeer = this.beers[0];
     });
     this.currentQuery = event.target.value.toString();
   }
@@ -98,6 +103,7 @@ export class BeerListComponent implements OnInit {
   onBeerChange(newId: number){
     var temp = this.beers.filter(el => el.beerId == newId);
     this.selectedBeer = temp[0];
+    this.tagsChanged = false;
     this.mapTags(this.selectedBeer.tags);
     if (this.selectedBeer.review != null) {
       this.wasReviewedBefore = true;
@@ -114,6 +120,7 @@ export class BeerListComponent implements OnInit {
 
   onBeerChangeMobile(newId: number){
     this.beerDetailsViewOpen = true;
+    this.tagsChanged = false;
     var temp = this.beers.filter(el => el.beerId == newId);
     this.selectedBeer = temp[0];
     this.mapTags(this.selectedBeer.tags);
@@ -237,7 +244,7 @@ export class BeerListComponent implements OnInit {
   LoadMore(){
     this.beerListProcessing = true;
     this.pageNumber += 1;
-    this.service.getBeersWithQuery(this.currentQuery, (this.pageNumber*this.pageSize+1), this.pageSize, this.userId).subscribe(data => {
+    this.service.getBeersWithQuery(this.currentQuery, (this.pageNumber*this.pageSize), this.pageSize, this.userId).subscribe(data => {
       var tempLoad = <Array<Beer>>data.body.content;
       for (let beer of tempLoad) {
         this.beers.push(beer);
@@ -273,6 +280,7 @@ export class BeerListComponent implements OnInit {
     tags: new FormControl(''),
   });
   tagsProcessing: boolean = false;
+  tagsChanged: boolean = false;
   tagsToSend: TagsReview = {
     login: '',
     tags: new Array<any>(),
@@ -418,6 +426,10 @@ export class BeerListComponent implements OnInit {
     return tempUnmap;
   }
 
+  onTagSelect(event: any){
+    this.tagsChanged = true;
+  }
+
   onSubmitTags() : void {
     this.tagsProcessing = true;
     this.tagsToSend.login = this.userId;
@@ -429,6 +441,7 @@ export class BeerListComponent implements OnInit {
       var temp = this.beers.filter(el => el.beerId == this.selectedBeer.beerId);
       this.beers[this.beers.indexOf(temp[0])].tags = this.tagsToSend.tags;
       this.tagsConfirmation = true;
+      this.tagsChanged = false;
       this.hideTagsConfirmation()
     });
   }

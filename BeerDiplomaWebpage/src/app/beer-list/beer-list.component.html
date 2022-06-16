@@ -1,93 +1,17 @@
-<div *ngIf="isDesktop" class="row flex-grow-1 overflow-hidden">
-  <div style="width: 35%;">
-
-    <input type="text" class="form" placeholder="Szukaj" (input)="onSearchChange($event)" style="margin-bottom: 20px">
-    <div style="height: 80vh !important;" class="overflow-auto">
-
-    <div class="flex-column">
-      <div *ngFor="let beer of beers" (click)="onBeerChange(beer.beerId)" class="listed-beer-css row flex-grow-1">
-        <div class="flex-column" style="width: 30%;">
-          <img [src]="beer.image" height="150" width="100" alt="Ładowanie zdjęcia piwa" style="margin-bottom: 50px; margin-top: 5px">
-        </div>
-        <div class="flex-column" style="width: 70%;">
-          <h2>{{beer.name}}</h2>
-          <p>Browar: {{beer.brewery}}</p>
-          <p>Styl: {{beer.style}}</p>
-          <p *ngIf="beer.review != null">Twoja Ocena: {{beer.review}}/10</p>
-        </div>
-      </div>
-    </div>
-    <div>
-      <button class="btn" *ngIf="beers.length == pageSize*(pageNumber+1)" (click)="LoadMore()">Załaduj Więcej</button>
-    </div>
-    </div>
-  </div>
-
-  <div style="width: 60%; height: 85vh !important;" class="col mh-100 overflow-auto">
-    <h1 class="center">{{selectedBeer.name}}</h1>
-
-    <div class="center">
-      <p>Browar: {{selectedBeer.brewery}}</p>
-      <p>Styl: {{selectedBeer.style}}</p>
-      <p>ABV: {{selectedBeer.abv}}</p>
-      <p>IBU: {{selectedBeer.ibu}}</p>
-    </div>
-
-    <div class="ratingBox">
-      <hr>
-      <h3 class="center">Dodaj Swoją Ocenę</h3>
-      <form  [formGroup]="reviewForm" (ngSubmit)="onSubmitReview()">
-        <fieldset class="form-group">
-          <ngb-rating formControlName="stars" [(rate)]="rating" class="rating" ></ngb-rating>
-          <p class="text">{{rating}}/10</p>
-          <button class="btn" type="submit" [disabled]="!reviewForm.valid || reviewProcessing" >Wyślij</button>
-        </fieldset>
-      </form>
-      <h4 class="success" *ngIf="reviewConfirmation">Ocena Została Wysłana</h4>
-    </div>
-
-    <div>
-      <hr>
-      <h3 class="center">Wybierz tagi</h3>
-      <form  [formGroup]="tagsForm" (ngSubmit)="onSubmitTags()">
-        <fieldset class="form-group center">
-          <ng-multiselect-dropdown
-            [placeholder]="'Wybierz'"
-            formControlName="tags"
-            [settings]="dropdownSettings"
-            [data]="tagsList"
-          >
-          </ng-multiselect-dropdown>
-          <button class="btn" type="submit" [disabled]="!tagsForm.valid || tagsProcessing" >Wyślij</button>
-        </fieldset>
-      </form>
-      <h4 class="success" *ngIf="tagsConfirmation">Tagi Zostały Wysłane</h4>
-    </div>
-
-    <div>
-      <hr>
-      <h3 class="center">Dodaj Swoje Zdjęcie</h3>
-      <form  [formGroup]="photoForm" (ngSubmit)="onSubmitPhoto()">
-        <fieldset class="form-group center">
-          <input type="file" formControlName="file" class="form-control" accept=".jpg, .png, .jpeg, .bmp, .tif, .tiff|image/*" (change)="onFileChange($event)">
-          <button class="btn" type="submit" [disabled]="!photoForm.valid || photoProcessing" >Wyślij</button>
-        </fieldset>
-      </form>
-      <h4 class="success" *ngIf="imageConfirmation">Zdjęcie Zostało Wysłane</h4>
-      <!--<button class="btn" routerLink="./camera" *ngIf="!isDesktop">Włącz aparat</button>-->
-    </div>
-  </div>
+<div *ngIf="userId ==''">
+  <h1 class="center">Zaloguj się by móc zobaczyć listę Piw </h1>
 </div>
+<div *ngIf="userId !=''">
+  <div *ngIf="isDesktop" class="row flex-grow-1 overflow-hidden">
+    <div style="width: 35%;">
 
-<div *ngIf="!isDesktop" class="row flex-grow-1 overflow-hidden">
-  <div *ngIf="!beerDetailsViewOpen">
-  <input type="text" class="form" placeholder="Szukaj" (input)="onSearchChange($event)" style="margin-bottom: 20px">
-    <div style="height: 85vh !important;" class="overflow-auto">
+      <input type="text" class="form" placeholder="Szukaj" (input)="onSearchChange($event)" style="margin-bottom: 20px">
+      <div style="height: 80vh !important;" class="overflow-auto">
 
       <div class="flex-column">
-        <div *ngFor="let beer of beers" (click)="onBeerChangeMobile(beer.beerId)" class="listed-beer-css row flex-grow-1">
+        <div *ngFor="let beer of beers" (click)="onBeerChange(beer.beerId)" class="listed-beer-css row flex-grow-1">
           <div class="flex-column" style="width: 30%;">
-            <img [src]="beer.image" height="150" width="100" alt="Ładowanie zdjęcia piwa" style="margin-bottom: 50px; margin-top: 5px">
+            <img [src]="beer.image" height="150" width="100" alt="Ładowanie zdjęcia piwa" style="margin-bottom: 20px; margin-top: 5px">
           </div>
           <div class="flex-column" style="width: 70%;">
             <h2>{{beer.name}}</h2>
@@ -100,60 +24,153 @@
       <div>
         <button class="btn" *ngIf="beers.length == pageSize*(pageNumber+1)" (click)="LoadMore()">Załaduj Więcej</button>
       </div>
+      </div>
+    </div>
+
+    <div style="width: 60%; height: 85vh !important;" class="col mh-100 overflow-auto">
+      <h1 class="center">{{selectedBeer.name}}</h1>
+
+      <div class="row flex-grow-1">
+        <div class="center col" style="width: 50%">
+          <img [src]="selectedBeer.image" height="450" width="300" alt="Ładowanie zdjęcia piwa">
+        </div>
+        <div class="center col" style="width: 50%; padding-top: 100px">
+          <h3>Browar: {{selectedBeer.brewery}}</h3>
+          <h3>Styl: {{selectedBeer.style}}</h3>
+          <h3>ABV: {{selectedBeer.abv}}</h3>
+          <h3>IBU: {{selectedBeer.ibu}}</h3>
+        </div>
+      </div>
+      <div class="ratingBox">
+        <hr>
+        <h3 class="center">Dodaj Swoją Ocenę</h3>
+        <form  [formGroup]="reviewForm" (ngSubmit)="onSubmitReview()">
+          <fieldset class="form-group">
+            <ngb-rating formControlName="stars" [(rate)]="rating" class="rating" ></ngb-rating>
+            <p class="text">{{rating}}/10</p>
+            <button class="btn" type="submit" [disabled]="!reviewForm.valid || reviewProcessing" >Wyślij</button>
+          </fieldset>
+        </form>
+        <h4 class="success" *ngIf="reviewConfirmation">Ocena Została Wysłana</h4>
+      </div>
+
+      <div>
+        <hr>
+        <h3 class="center">Wybierz tagi</h3>
+        <form  [formGroup]="tagsForm" (ngSubmit)="onSubmitTags()">
+          <fieldset class="form-group center">
+            <ng-multiselect-dropdown
+              [placeholder]="'Wybierz'"
+              formControlName="tags"
+              [settings]="dropdownSettings"
+              [data]="tagsList"
+              (onSelect)="onTagSelect($event)"
+            >
+            </ng-multiselect-dropdown>
+            <button class="btn" type="submit" [disabled]="!tagsForm.valid || tagsProcessing || !tagsChanged" >Wyślij</button>
+          </fieldset>
+        </form>
+        <h4 class="success" *ngIf="tagsConfirmation">Tagi Zostały Wysłane</h4>
+      </div>
+
+      <div>
+        <hr>
+        <h3 class="center">Dodaj Swoje Zdjęcie</h3>
+        <form  [formGroup]="photoForm" (ngSubmit)="onSubmitPhoto()">
+          <fieldset class="form-group center">
+            <input type="file" formControlName="file" class="form-control" accept=".jpg, .png, .jpeg, .bmp, .tif, .tiff|image/*" (change)="onFileChange($event)">
+            <button class="btn" type="submit" [disabled]="!photoForm.valid || photoProcessing" >Wyślij</button>
+          </fieldset>
+        </form>
+        <h4 class="success" *ngIf="imageConfirmation">Zdjęcie Zostało Wysłane</h4>
+        <!--<button class="btn" routerLink="./camera" *ngIf="!isDesktop">Włącz aparat</button>-->
+      </div>
     </div>
   </div>
-  <div  *ngIf="beerDetailsViewOpen" class="col vh-100 overflow-auto" style="height: 95vh !important;">
-    <mat-icon class="backbutton-css" (click)="HideBeerViewMobile()">arrow_back</mat-icon>
-    <h1 class="center">{{selectedBeer.name}}</h1>
 
-    <div class="center">
-      <p>Browar: {{selectedBeer.brewery}}</p>
-      <p>Styl: {{selectedBeer.style}}</p>
-      <p>ABV: {{selectedBeer.abv}}</p>
-      <p>IBU: {{selectedBeer.ibu}}</p>
+  <div *ngIf="!isDesktop" class="row flex-grow-1 overflow-hidden">
+    <div *ngIf="!beerDetailsViewOpen">
+    <input type="text" class="form" placeholder="Szukaj" (input)="onSearchChange($event)" style="margin-bottom: 20px">
+      <div style="height: 85vh !important;" class="overflow-auto">
+
+        <div class="flex-column">
+          <div *ngFor="let beer of beers" (click)="onBeerChangeMobile(beer.beerId)" class="listed-beer-css row flex-grow-1">
+            <div class="flex-column" style="width: 30%;">
+              <img [src]="beer.image" height="150" width="100" alt="Ładowanie zdjęcia piwa" style="margin-bottom: 20px; margin-top: 5px">
+            </div>
+            <div class="flex-column" style="width: 70%;">
+              <h2>{{beer.name}}</h2>
+              <p>Browar: {{beer.brewery}}</p>
+              <p>Styl: {{beer.style}}</p>
+              <p *ngIf="beer.review != null">Twoja Ocena: {{beer.review}}/10</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button class="btn" *ngIf="beers.length == pageSize*(pageNumber+1)" (click)="LoadMore()">Załaduj Więcej</button>
+        </div>
+      </div>
     </div>
+    <div  *ngIf="beerDetailsViewOpen" class="col vh-100 overflow-auto" style="height: 95vh !important;">
+      <mat-icon class="backbutton-css" (click)="HideBeerViewMobile()">arrow_back</mat-icon>
+      <h1 class="center">{{selectedBeer.name}}</h1>
 
-    <div class="ratingBox">
-      <hr>
-      <h3 class="center">Dodaj Swoją Ocenę</h3>
-      <form  [formGroup]="reviewForm" (ngSubmit)="onSubmitReview()">
-        <fieldset class="form-group">
-          <ngb-rating formControlName="stars" [(rate)]="rating" class="rating" ></ngb-rating>
-          <p class="text">{{rating}}/10</p>
-          <button class="btn" type="submit" [disabled]="!reviewForm.valid || reviewProcessing" >Wyślij</button>
-        </fieldset>
-      </form>
-      <h4 class="success" *ngIf="reviewConfirmation">Ocena Została Wysłana</h4>
-    </div>
+      <div class="row flex-grow-1">
+        <div class="center col" style="width: 50%">
+          <img [src]="selectedBeer.image" height="450" width="300" alt="Ładowanie zdjęcia piwa">
+        </div>
+        <div class="center col" style="width: 50%; padding-top: 100px">
+          <h3>Browar: {{selectedBeer.brewery}}</h3>
+          <h3>Styl: {{selectedBeer.style}}</h3>
+          <h3>ABV: {{selectedBeer.abv}}</h3>
+          <h3>IBU: {{selectedBeer.ibu}}</h3>
+        </div>
+      </div>
 
-    <div>
-      <hr>
-      <h3 class="center">Wybierz tagi</h3>
-      <form  [formGroup]="tagsForm" (ngSubmit)="onSubmitTags()">
-        <fieldset class="form-group center">
-          <ng-multiselect-dropdown
-            formControlName="tags"
-            [settings]="dropdownSettings"
-            [data]="tagsList"
-          >
-          </ng-multiselect-dropdown>
-          <button class="btn" type="submit" [disabled]="!tagsForm.valid || tagsProcessing" >Wyślij</button>
-        </fieldset>
-      </form>
-      <h4 class="success" *ngIf="tagsConfirmation">Tagi Zostały Wysłane</h4>
-    </div>
+      <div class="ratingBox">
+        <hr>
+        <h3 class="center">Dodaj Swoją Ocenę</h3>
+        <form  [formGroup]="reviewForm" (ngSubmit)="onSubmitReview()">
+          <fieldset class="form-group">
+            <ngb-rating formControlName="stars" [(rate)]="rating" class="rating" ></ngb-rating>
+            <p class="text">{{rating}}/10</p>
+            <button class="btn" type="submit" [disabled]="!reviewForm.valid || reviewProcessing" >Wyślij</button>
+          </fieldset>
+        </form>
+        <h4 class="success" *ngIf="reviewConfirmation">Ocena Została Wysłana</h4>
+      </div>
 
-    <div>
-      <hr>
-      <h3 class="center">Dodaj Swoje Zdjęcie</h3>
-      <form  [formGroup]="photoForm" (ngSubmit)="onSubmitPhoto()">
-        <fieldset class="form-group center">
-          <input type="file" formControlName="file" class="form-control" accept=".jpg, .png, .jpeg, .bmp, .tif, .tiff|image/*" (change)="onFileChange($event)">
-          <button class="btn" type="submit" [disabled]="!photoForm.valid || photoProcessing" >Wyślij</button>
-        </fieldset>
-      </form>
-      <h4 class="success" *ngIf="imageConfirmation">Zdjęcie Zostało Wysłane</h4>
-      <!--<button class="btn" routerLink="./camera" *ngIf="!isDesktop">Włącz aparat</button>-->
+      <div>
+        <hr>
+        <h3 class="center">Wybierz tagi</h3>
+        <form  [formGroup]="tagsForm" (ngSubmit)="onSubmitTags()">
+          <fieldset class="form-group center">
+            <ng-multiselect-dropdown
+              [placeholder]="'Wybierz'"
+              formControlName="tags"
+              [settings]="dropdownSettings"
+              [data]="tagsList"
+              (onSelect)="onTagSelect($event)"
+            >
+            </ng-multiselect-dropdown>
+            <button class="btn" type="submit" [disabled]="!tagsForm.valid || tagsProcessing  || !tagsChanged" >Wyślij</button>
+          </fieldset>
+        </form>
+        <h4 class="success" *ngIf="tagsConfirmation">Tagi Zostały Wysłane</h4>
+      </div>
+
+      <div>
+        <hr>
+        <h3 class="center">Dodaj Swoje Zdjęcie</h3>
+        <form  [formGroup]="photoForm" (ngSubmit)="onSubmitPhoto()">
+          <fieldset class="form-group center">
+            <input type="file" formControlName="file" class="form-control" accept=".jpg, .png, .jpeg, .bmp, .tif, .tiff|image/*" (change)="onFileChange($event)">
+            <button class="btn" type="submit" [disabled]="!photoForm.valid || photoProcessing" >Wyślij</button>
+          </fieldset>
+        </form>
+        <h4 class="success" *ngIf="imageConfirmation">Zdjęcie Zostało Wysłane</h4>
+        <!--<button class="btn" routerLink="./camera" *ngIf="!isDesktop">Włącz aparat</button>-->
+      </div>
     </div>
   </div>
 </div>
