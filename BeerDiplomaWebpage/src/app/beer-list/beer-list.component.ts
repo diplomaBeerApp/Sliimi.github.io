@@ -39,6 +39,7 @@ export class BeerListComponent implements OnInit {
     image: "",
     tags: new Array<any>(),
     review: 0,
+    isImageLoaded: false,
   };
 
   userId: string = '';
@@ -76,6 +77,7 @@ export class BeerListComponent implements OnInit {
       this.beers = data.body.content;
       console.log(data);
       for (let _i = 0; _i < this.pageSize; _i++){
+        this.beers[_i].isImageLoaded = false;
         this.getImageFromUrl(this.beers[_i].mainPhotoUrl, _i);
       }
       this.selectedBeer = this.beers[0];
@@ -93,6 +95,7 @@ export class BeerListComponent implements OnInit {
     this.service.getBeersWithQuery(event.target.value.toString(), (this.pageNumber*this.pageSize), this.pageSize, this.userId).subscribe(data => {
       this.beers = data.body.content;
       for (let _i = 0; _i < this.pageSize; _i++){
+        this.beers[_i].isImageLoaded = false;
         this.getImageFromUrl(this.beers[_i].mainPhotoUrl, _i);
       }
       this.selectedBeer = this.beers[0];
@@ -250,6 +253,7 @@ export class BeerListComponent implements OnInit {
         this.beers.push(beer);
       }
       for (let _i = this.pageSize*this.pageNumber; _i < this.pageSize*(this.pageNumber+1); _i++){
+        this.beers[_i].isImageLoaded = false;
         this.getImageFromUrl(this.beers[_i].mainPhotoUrl, _i);
       }
       this.beerListProcessing = false;
@@ -260,6 +264,7 @@ export class BeerListComponent implements OnInit {
     let reader = new FileReader();
     reader.addEventListener("load", () => {
       this.beers[index].image = reader.result;
+      this.beers[index].isImageLoaded = true;
     }, false);
 
     if (image) {

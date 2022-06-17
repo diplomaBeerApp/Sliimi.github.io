@@ -51,6 +51,7 @@ export class HomeComponent implements OnInit {
     this.service.getStatistics(this.user).subscribe(data => {
       this.statistics = data.body.content;
       for (let _i = 0; _i < this.statistics.lastThreeReviews.length; _i++){
+        this.statistics.lastThreeReviews[_i].isImageLoaded = false;
         this.getImageFromUrl(this.statistics.lastThreeReviews[_i].mainPhotoUrl, _i);
       }
     });
@@ -60,6 +61,7 @@ export class HomeComponent implements OnInit {
     let reader = new FileReader();
     reader.addEventListener("load", () => {
       this.statistics.lastThreeReviews[index].image = reader.result;
+      this.statistics.lastThreeReviews[index].isImageLoaded = true;
     }, false);
 
     if (image) {
