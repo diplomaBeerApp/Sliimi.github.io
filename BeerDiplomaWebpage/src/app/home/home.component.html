@@ -13,7 +13,8 @@
       <div class="center" style="padding-top: 50px">
         <div *ngFor="let beer of statistics.lastThreeReviews" class="statistics-beer-css row flex-grow-1">
           <div class="flex-column" style="width: 30%;">
-            <img [src]="beer.image" height="150" width="100" alt="Ładowanie zdjęcia piwa" style="margin-bottom: 20px; margin-top: 5px">
+            <mat-progress-spinner *ngIf="!beer.isImageLoaded" style="stroke: chocolate" [mode]="'indeterminate'"></mat-progress-spinner>
+            <img *ngIf="beer.isImageLoaded" [src]="beer.image" height="150" width="100" alt="Ładowanie zdjęcia piwa" style="margin-bottom: 20px; margin-top: 5px">
           </div>
           <div class="flex-column" style="width: 70%;">
             <h2>{{beer.name}}</h2>

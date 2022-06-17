@@ -9,6 +9,7 @@ export interface Beer {
   image: any;
   review: number;
   tags: Array<any>;
+  isImageLoaded: boolean;
 }
 
 export interface BeerFullInfo {
