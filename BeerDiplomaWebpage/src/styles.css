@@ -306,4 +306,13 @@ input, .form-control[type="file"] {
     margin-left: 0;
   }
 
+  .btn{
+    width: 130px
+  }
+
+  .row, .flex-column{
+    padding-left: 0;
+    padding-right: 0;
+  }
+
     }

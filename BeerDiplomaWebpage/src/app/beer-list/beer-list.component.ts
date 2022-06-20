@@ -72,7 +72,7 @@ export class BeerListComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.cookieService.get("user");
-    this.isDesktop = this.deviceService.isDesktop();
+    this.isDesktop = false; //this.deviceService.isDesktop();
     this.service.getBeersWithQuery(this.currentQuery, (this.pageNumber*this.pageSize), this.pageSize, this.userId).subscribe(data => {
       this.beers = data.body.content;
       console.log(data);
