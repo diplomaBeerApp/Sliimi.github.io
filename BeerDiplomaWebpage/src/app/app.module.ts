@@ -17,6 +17,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {NetworkInterceptor} from "./network.interceptor";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { AboutComponent } from './about/about.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 
 
@@ -27,6 +28,7 @@ import { AboutComponent } from './about/about.component';
     HeaderComponent,
     ReviewComponent,
     AboutComponent,
+    PrivacyPolicyComponent,
   ],
   imports: [
     BrowserModule,

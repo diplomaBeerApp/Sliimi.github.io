@@ -8,6 +8,7 @@
     <button class="menuItem" *ngIf="!logged" [routerLink]="['/register']" mat-menu-item>Rejestracja</button>
     <button class="menuItem" [routerLink]="['']" mat-menu-item>Strona Główna</button>
     <button class="menuItem" [routerLink]="['/about']" mat-menu-item>Info</button>
+    <button class="menuItem" [routerLink]="['/privacy']" mat-menu-item>Polityka Prywatności</button>
     <button class="menuItem" [routerLink]="['/beer-list']" mat-menu-item *ngIf="logged == true">Lista Piw</button>
     <button class="menuItem" *ngIf="logged" (click)="logOut()" mat-menu-item>Wyloguj</button>
     </mat-menu>
@@ -21,6 +22,10 @@
 
     <li>
         <a class="link" [routerLink]="['/about']" >Info</a>
+    </li>
+
+    <li>
+       <a class="link" [routerLink]="['/privacy']" >Polityka Prywatności</a>
     </li>
 
     <li *ngIf="logged == true">
