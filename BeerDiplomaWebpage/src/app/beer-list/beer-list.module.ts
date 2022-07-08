@@ -13,6 +13,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import {MatIconModule} from '@angular/material/icon'
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {FooterModule} from "../footer/footer.module";
 
 @NgModule({
   declarations: [ BeerListComponent, BeerDetailsComponent, CameraComponent, BeerPhotoComponent ],
@@ -26,6 +27,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     NgMultiSelectDropDownModule.forRoot(),
     MatIconModule,
     MatProgressSpinnerModule,
+    FooterModule,
   ],
   providers: [ CookieService ],
   bootstrap: [ BeerListComponent ]
