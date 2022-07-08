@@ -167,6 +167,11 @@ h1 {
     border-color:chocolate;
 }
 
+.footer {
+  border-bottom-style:none;
+  border-top-style:inset;
+}
+
 .list {
     text-align: center;
     list-style-position: inside;

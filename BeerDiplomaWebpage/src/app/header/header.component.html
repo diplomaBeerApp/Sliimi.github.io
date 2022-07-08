@@ -20,14 +20,6 @@
         <a class="link" [routerLink]="['']" >Strona Główna</a>
     </li>
 
-    <li>
-        <a class="link" [routerLink]="['/about']" >Info</a>
-    </li>
-
-    <li>
-       <a class="link" [routerLink]="['/privacy']" >Polityka Prywatności</a>
-    </li>
-
     <li *ngIf="logged == true">
         <a class="link" [routerLink]="['/beer-list']">Lista Piw</a>
     </li>
