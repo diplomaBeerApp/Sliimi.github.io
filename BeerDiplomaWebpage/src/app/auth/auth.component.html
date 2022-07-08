@@ -1,3 +1,4 @@
+<div class="vh-90">
 <h1 class="center">{{title}}</h1>
 
 
@@ -7,7 +8,7 @@
     </ul>
 
     <p class="success" *ngIf="processing">{{registerMessage}}</p>
-    
+
     <fieldset class="form-group">
         <fieldset class ="form-group"><input (blur)="checkLogin()" formControlName="login" type="text" id="username" class="form" placeholder="Login" ></fieldset>
 
@@ -21,4 +22,5 @@
     </fieldset>
 </form>
 
-
+<app-footer></app-footer>
+</div>

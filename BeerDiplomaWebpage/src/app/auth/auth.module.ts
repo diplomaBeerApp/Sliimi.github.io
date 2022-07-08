@@ -7,6 +7,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import {FooterModule} from "../footer/footer.module";
 
 @NgModule({
   declarations: [ AuthComponent ],
@@ -14,6 +15,7 @@ import { CookieService } from 'ngx-cookie-service';
     BrowserModule,
     AuthRoutingModule,
     ReactiveFormsModule,
+    FooterModule,
   ],
   providers: [ CookieService ],
   bootstrap: [ AuthComponent ]

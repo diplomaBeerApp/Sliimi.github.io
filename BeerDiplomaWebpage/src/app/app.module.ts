@@ -18,6 +18,7 @@ import {NetworkInterceptor} from "./network.interceptor";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { AboutComponent } from './about/about.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import {FooterModule} from "./footer/footer.module";
 
 
 
@@ -41,6 +42,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
     NgbModule,
     MatProgressSpinnerModule,
     HttpClientModule,
+    FooterModule,
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},

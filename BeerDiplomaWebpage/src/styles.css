@@ -132,7 +132,7 @@ h1 {
     display: none;
 }
 
-.navPc {
+.navPc, .footerNav {
     display: inline-block;
     text-align: center;
     padding: 0;
@@ -140,7 +140,7 @@ h1 {
     margin-left: 40%;
 }
 
-.navPc li {
+.navPc li, .footerNav li {
     display:inline-block;
     padding:20px;
     font-size: 20px;
@@ -165,6 +165,11 @@ h1 {
     width:100%;
     border-bottom-style:inset;
     border-color:chocolate;
+}
+
+.footer {
+  border-bottom-style:none;
+  border-top-style:inset;
 }
 
 .list {
@@ -259,7 +264,14 @@ input, .form-control[type="file"] {
   width: 15px;
 }
 
+.vh-90 {
+  height: 85vh !important;
+}
 
+.GPDownload {
+  height: 80px;
+  width: 220px;
+}
 
 @media only screen and (max-device-width: 1000px){
 
