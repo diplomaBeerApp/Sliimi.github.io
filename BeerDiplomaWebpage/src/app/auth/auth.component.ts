@@ -223,6 +223,8 @@ export class AuthComponent implements OnInit {
               this.processing = false;
             }
             sessionStorage.setItem('userRegister','Rejestracja użytkownika ' + this.userInfo.login + ' powiodła się');
+			this.cookieService.set('user', String(this.userInfo.login));
+            this.cookieService.set("reloadOnce",'');
             this.router.navigateByUrl('/');
           }
 

@@ -37,7 +37,6 @@ export class HomeComponent implements OnInit {
       sessionStorage.removeItem('userRegister')
     }
     if(this.cookieService.check('reloadOnce')) {
-      console.log("cos dziala");
       this.cookieService.delete('reloadOnce');
       window.location.reload()
     }
