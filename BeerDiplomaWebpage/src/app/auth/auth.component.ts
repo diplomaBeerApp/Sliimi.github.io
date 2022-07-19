@@ -119,7 +119,7 @@ export class AuthComponent implements OnInit {
           }
         }
 
-        const regularExpression = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+        const regularExpression = /^(?=.{8,})/;
         if(!regularExpression.test(String(this.authForm.controls["password"].value))) { //check if password is "smart"
 
           if(!this.errors.includes(errorStr2)) {

@@ -239,6 +239,9 @@ export class BeerListComponent implements OnInit {
         this.photoProcessing = false;
         this.imageConfirmation = true;
         this.hideImageConfirmation()
+        this.service.incrementPhotoCount(this.userId).subscribe(response => {
+          console.log(response)
+        });
         console.log(response)
       });
     });

@@ -12,6 +12,7 @@ import {SafeHtml} from "@angular/platform-browser";
 export class BeerListService {
   public static urlBeers = "https://k4qauqp2v9.execute-api.us-east-1.amazonaws.com/prod/beers";
   public static urlReviews = "https://k4qauqp2v9.execute-api.us-east-1.amazonaws.com/prod/reviews";
+  public static urlUsers = "https://k4qauqp2v9.execute-api.us-east-1.amazonaws.com/prod/users";
 
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
@@ -90,6 +91,12 @@ export class BeerListService {
     return this.http.put(BeerListService.urlReviews + '/' + tags.login + '/' + tags.beer_id + '/tags',tags.tags , {
       observe: 'response',
     });
+  }
+
+  public incrementPhotoCount(user: string): Observable<HttpResponse<any>>{
+    return this.http.post<any>(BeerListService.urlUsers+'/'+ user +'/photos', {
+      observe: 'response',
+    } );
   }
 
 }
