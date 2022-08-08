@@ -5,3 +5,11 @@ mat-progress-spinner {
   transform: translate(-50%, -50%);
   z-index: 5;
 }
+
+#main {
+  background-image: url("../assets/wood.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  height: 800px;
+  backdrop-filter: blur(10px);
+}

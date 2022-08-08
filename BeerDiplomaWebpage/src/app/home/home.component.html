@@ -1,5 +1,4 @@
-<div class="row flex-grow-1 overflow-hidden">
-  <h1 class="center">Strona Główna</h1>
+<div class="row flex-grow-1 overflow-hidden" id="home_main">
   <div style="" class="center overflow-auto vh-90">
     <div *ngIf="login" class="row main-page-css">
       <div class="flex-column" style="width: 50%;">
@@ -30,7 +29,14 @@
         </div>
       </div>
     </div>
-    <app-footer></app-footer>
+    <div *ngIf="!login">
+      <div id="mainPageWelcomeText">
+        <h1>Witaj w BeerUp!</h1>
+        <p>Oceniaj piwa, dodawaj zdjęcia, ciesz się dobrymi poleceniami!</p>
+        <a class="link" [routerLink]="['/login']" ><button><b>ZACZYNAMY</b></button></a>
+      </div>
+    </div>
+<!--    <app-footer></app-footer>-->
   </div>
 </div>
 

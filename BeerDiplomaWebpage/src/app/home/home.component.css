@@ -1,0 +1,39 @@
+#home_main {
+  background-image: url("../../assets/beer-03.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  height: 800px;
+}
+
+#mainPageWelcomeText {
+  font-size: 16pt;
+  margin-top: 120px;
+  margin-left: 120px;
+  text-align: left;
+}
+
+#mainPageWelcomeText h1 {
+  font-size: 50pt;
+  padding-left: 0;
+}
+
+#mainPageWelcomeText button {
+  width: 180px;
+  height: 60px;
+  border-radius: 30px;
+  border: none;
+  background: #ff684d;
+  margin-top: 20px;
+  color: #1e2125;
+}
+
+#mainPageWelcomeText button:hover {
+  width: 180px;
+  height: 60px;
+  border-radius: 30px;
+  border: none;
+  background: #ff583b;
+  margin-top: 20px;
+  color: #1e2125;
+  box-shadow: 0px 0px 20px grey;
+}

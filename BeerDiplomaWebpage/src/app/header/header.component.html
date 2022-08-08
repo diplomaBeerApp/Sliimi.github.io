@@ -15,25 +15,36 @@
 
 </div>
 
-<ul class="navPc">
+<ul class="navPc" id="menuPc" style="
+    position: absolute;
+    top: 10px;
+    right: 200px;
+    color: #ffdcdd;
+">
+    <li style="color: #ffdcdd;">
+        <a class="link" [routerLink]="['']" >STRONA GŁÓWNA</a>
+    </li>
+
     <li>
-        <a class="link" [routerLink]="['']" >Strona Główna</a>
+      <a class="link" [routerLink]="['/about']" >O NAS</a>
     </li>
 
     <li *ngIf="logged == true">
         <a class="link" [routerLink]="['/beer-list']">Lista Piw</a>
     </li>
 
-    <li>
+   <!-- <li>
         <a class="link" *ngIf="!logged" [routerLink]="['/login']" >Logowanie</a>
     </li>
 
     <li>
         <a class="link" *ngIf="!logged" [routerLink]="['/register']" >Rejestracja</a>
-    </li>
+    </li>-->
 
     <li>
         <a class="link"  *ngIf="logged" (click)="logOut()" >Wyloguj</a>
     </li>
+
+
 </ul>
 </div>

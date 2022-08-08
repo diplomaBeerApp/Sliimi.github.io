@@ -148,7 +148,8 @@ h1 {
 
 .link {
     text-decoration: none;
-    color:chocolate;
+    color: #ffdcdd;
+    font-weight: bold;
 }
 
 .link:hover {
